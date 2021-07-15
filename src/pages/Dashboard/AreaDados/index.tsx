@@ -1,4 +1,7 @@
+import { Form, Formik } from "formik";
 import styled from "styled-components";
+import { CampoBusca } from "../../../components/Campo";
+import * as Yup from "yup";
 
 const Container = styled.div`
   background-color: #C4C4C4;
@@ -36,12 +39,44 @@ const TituloContainer = styled.div`
   }
 `;
 
+interface FormTypes {
+  empresa_buscada: string;
+}
+
+const initialValues = {
+  empresa_buscada: '',
+};
+
 export function AreaDados() {
+  const validationSchema = Yup.object().shape({
+    empresa_buscada: Yup
+      .string()
+      .required('O campo é obrigatorio'),
+  });
+
+  async function handleSubmitForm(values: FormTypes) {
+    alert(`Empresa: ${values.empresa_buscada}`);
+  }
+
   return (
     <Container>
       <TituloContainer>
         <h1>Dashboard</h1>
       </TituloContainer>
+      <Formik
+        validationSchema={validationSchema}
+        initialValues={initialValues}
+        onSubmit={handleSubmitForm}
+      >
+        {({errors, touched}) => (
+          <Form>
+            <CampoBusca
+              name="empresa_buscada"
+              erro={(errors.empresa_buscada && touched.empresa_buscada) ? (<p>{errors.empresa_buscada}</p>) : null}
+            />
+          </Form>
+        )}
+      </Formik>
     </Container>
   );
 }
