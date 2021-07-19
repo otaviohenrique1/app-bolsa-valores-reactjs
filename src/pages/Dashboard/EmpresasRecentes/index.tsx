@@ -102,7 +102,17 @@ export function EmpresasRecentes() {
       </TituloContainer>
       <CardEmpresaContainer>
         <Item
-          logo_empresa={facebook}
+          logo_empresa={{
+            src: facebook,
+            alt: "facebook"
+          }}
+          empresa_dados={{
+            nome_empresa: "FB",
+            codigo_empresa: "Facebook"
+          }}
+          valor_porcentagem={{
+            porcentagem: +2.3
+          }}
         />
       </CardEmpresaContainer>
     </EmpresasRecentesContainer>
