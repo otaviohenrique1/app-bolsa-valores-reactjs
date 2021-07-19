@@ -4,13 +4,12 @@ import { CampoBusca } from "../../../components/CampoBusca";
 import * as Yup from "yup";
 import { Titulo } from "../../../components/Titulo";
 import { Grafico } from "../../../components/Grafico";
+import { EmpresasRecentes } from "../EmpresasRecentes";
 
 const Container = styled.div`
   background-color: #C4C4C4;
   width: 100%;
 `;
-
-
 interface FormTypes {
   empresa_buscada: string;
 }
@@ -50,6 +49,7 @@ export function AreaDados() {
         )}
       </Formik>
       <Grafico />
+      <EmpresasRecentes />
     </Container>
   );
 }

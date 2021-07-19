@@ -2,10 +2,6 @@ import styled from "styled-components";
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 import star_fill from "../../assets/images/star_fill.svg";
 import graph_down from "../../assets/images/graph-down.svg";
-import stats_graph from "../../assets/images/stats_graph.svg";
-import arrow_left from "../../assets/images/arrow-left.svg";
-import arrow_right from "../../assets/images/arrow-right.svg";
-import facebook from "../../assets/images/facebook.svg";
 
 const GraficoContainer = styled.div`
   background: blue;
@@ -100,109 +96,6 @@ const AreaGrafico = styled.div`
   margin: 10px 0px;
 `;
 
-const EmpresasRecentesContainer = styled.div`
-  position: absolute;
-  width: 749px;
-  height: 136px;
-  top: 450px;
-  /* left: 115px; */
-  /* top: 575px; */
-  /* background: #f1ecec; */
-  /* position: absolute; */
-  background: #f1ecec;
-  margin-top: 39px;
-`;
-
-const TituloContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding: 0px;
-  position: absolute;
-  width: 198px;
-  height: 27px;
-  left: 12px;
-  top: 0px;
-
-  img {
-    position: static;
-    left: 0%;
-    right: 87.88%;
-    top: 0%;
-    bottom: 11.11%;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-    margin: 0px 8px;
-  }
-
-  p {
-    position: static;
-    width: 166px;
-    height: 27px;
-    left: 32px;
-    top: 0px;
-    font-family: Graphik;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 150%;
-    display: flex;
-    align-items: center;
-    color: #14171A;
-    flex: none;
-    order: 1;
-    flex-grow: 0;
-    margin: 0px 8px;
-  }
-
-  div {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0px;
-
-    position: absolute;
-    width: 36px;
-    height: 12px;
-    /* left: 700px;
-    top: 7px; */
-    left: 725px;
-    top: 7px;
-
-    img {
-      width: 6px;
-      height: 12px;
-    }
-  }
-`;
-
-const CardEmpresaContainer = styled.div`
-  position: absolute;
-  left: 15px;
-  bottom: 20px;
-`;
-
-const CardEmpresa = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  /* padding: 16px; */
-  /* position: absolute; */
-  /* left: 15px;
-  bottom: 20px; */
-  /* left: 1.71%; */
-  /* right: 59%;
-  top: 11.97%; */
-  /* bottom: 36.62%; */
-  /* bottom: 20%; */
-  width: 300px;
-  height: 73px;
-  background: #FFFFFF;
-  box-shadow: 0px 8px 20px -2px rgba(43, 37, 63, 0.1);
-  border-radius: 8px;
-`;
-
 export function Grafico() {
   const data = [
     {name: 'Page A', uv: 400, pv: 2400, amt: 2400},
@@ -241,29 +134,6 @@ export function Grafico() {
           <Tooltip />
         </LineChart>
       </AreaGrafico>
-      <EmpresasRecentesContainer>
-        <TituloContainer>
-          <img src={stats_graph} alt="stats_graph" />
-          <p>Empresas recentes</p>
-          <div>
-            <img src={arrow_left} alt="arrow_left" />
-            <img src={arrow_right} alt="arrow_right" />
-          </div>
-        </TituloContainer>
-        <CardEmpresaContainer>
-          <CardEmpresa>
-            <img src={star_fill} alt="star_fill" />
-            <img src={facebook} alt="facebook" />
-            <div>
-              <CodigoEmpresa>FB</CodigoEmpresa><br />
-              <NomeEmpresa>Facebook</NomeEmpresa>
-            </div>
-            <div>
-              <ValorAcaoVaricacao>$-0.09 (-0.03%)</ValorAcaoVaricacao>
-            </div>
-          </CardEmpresa>
-        </CardEmpresaContainer>
-      </EmpresasRecentesContainer>
     </GraficoContainer>
   );
 }
