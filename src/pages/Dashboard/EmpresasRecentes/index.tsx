@@ -6,6 +6,8 @@ import arrow_left from "../../../assets/images/arrow-left.svg";
 import arrow_right from "../../../assets/images/arrow-right.svg";
 import facebook from "../../../assets/images/facebook.svg";
 import { Item } from "../../../components/Item";
+import { ButtonHTMLAttributes } from "react";
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
 const EmpresasRecentesContainer = styled.div`
 position: absolute;
@@ -88,6 +90,34 @@ const CardEmpresaContainer = styled.div`
   bottom: 20px;
 `;
 
+interface BotaoSetaProps {
+  // src: string;
+  // alt: string;
+  icon: any;
+  props?: ButtonHTMLAttributes<HTMLButtonElement>;
+}
+
+const BotaoSetaStyle = styled.button`
+  border: none;
+  background: none;
+  color: #0047BB;
+  svg:hover {
+    color: darkblue;
+  }
+  &:hover {
+    background: lightgray;
+  }
+`;
+
+function BotaoSeta(props: BotaoSetaProps) {
+  return (
+    <BotaoSetaStyle type="button" {...props.props}>
+      {/* <img src={props.src} alt={props.alt} /> */}
+      {props.icon}
+    </BotaoSetaStyle>
+  );
+}
+
 export function EmpresasRecentes() {
   return (
     <EmpresasRecentesContainer>
@@ -95,12 +125,14 @@ export function EmpresasRecentes() {
         <img src={stats_graph} alt="stats_graph" />
         <p>Empresas recentes</p>
         <div>
-          <img src={arrow_left} alt="arrow_left" />
-          <img src={arrow_right} alt="arrow_right" />
+          {/* <BotaoSeta src={MdKeyboardArrowLeft} alt="arrow_left" />
+          <BotaoSeta src={arrow_right} alt="arrow_right" /> */}
+          <BotaoSeta icon={<MdKeyboardArrowLeft size={30} />} />
+          <BotaoSeta icon={<MdKeyboardArrowRight size={30} />} />
         </div>
       </TituloContainer>
       <CardEmpresaContainer>
-        {/* <Item
+        <Item
           logo_empresa={{
             src: facebook,
             alt: "facebook"
@@ -112,7 +144,7 @@ export function EmpresasRecentes() {
           valor_porcentagem={{
             porcentagem: 2.3
           }}
-        /> */}
+        />
       </CardEmpresaContainer>
     </EmpresasRecentesContainer>
   );

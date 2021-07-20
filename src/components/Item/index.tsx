@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { BotaoFavorito } from "../BotaoFavorito";
 import { CardEmpresa, EmpresaDados, EmpresaDadosProps, LogoEmpresa, LogoEmpresaProps } from "../Empresa";
-import { ValorAcaoPorcentagem, ValorAcaoPorcentagemProps } from "../ValorAcao";
+import { ImagemGraficoSeta, ValorAcaoPorcentagem, ValorAcaoPorcentagemProps } from "../ValorAcao";
 
 interface ItemProps {
   logo_empresa: LogoEmpresaProps;
@@ -35,6 +35,7 @@ export function Item(props: ItemProps) {
       </ItemBox>
       <ItemBox valor_flex={3}>
         <ValorAcaoPorcentagem porcentagem={props.valor_porcentagem.porcentagem} />
+        <ImagemGraficoSeta porcentagem={props.valor_porcentagem.porcentagem}  />
       </ItemBox>
     </CardEmpresa>
   );

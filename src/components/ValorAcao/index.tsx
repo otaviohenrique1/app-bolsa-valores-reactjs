@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "styled-components";
 import graph_up from "../../assets/images/graph-up.svg";
 import graph_down from "../../assets/images/graph-down.svg";
@@ -18,10 +17,10 @@ export const ValorAcaoVaricacao = styled.span<ValorAcaoVaricacaoStyleProps>`
     (props.acaoCor === 'danger' && '#D64B45')
   };
 
-  img {
+  /* img {
     padding-left: 5px;
     text-align: end;
-  }
+  } */
 `;
 
 /*
@@ -31,26 +30,47 @@ export const ValorAcaoVaricacao = styled.span<ValorAcaoVaricacaoStyleProps>`
   };
 */
 
+const ImgGraficoSeta = styled.img`
+  padding-left: 5px;
+  text-align: end;
+  /* width: 15px;
+  height: 8px; */
+`;
+
+export function ImagemGraficoSeta(props: ValorAcaoPorcentagemProps) {
+  let valor = Math.sign(props.porcentagem);
+  const verificaSeValorForPositivo = valor === 1;
+  const verificaSeValorForNegativo = valor === -1;
+
+  return (
+    <ImgGraficoSeta
+      src={((verificaSeValorForPositivo) && graph_up) ||
+        ((verificaSeValorForNegativo) && graph_down) || ""}
+      alt={((verificaSeValorForPositivo) && "graph_up") ||
+        ((verificaSeValorForNegativo) && "graph_down") || ""}
+    />
+  );
+}
+
 export interface ValorAcaoPorcentagemProps {
   porcentagem: number;
 }
 
 export function ValorAcaoPorcentagem(props: ValorAcaoPorcentagemProps) {
   let valor = Math.sign(props.porcentagem);
+  const verificaSeValorForPositivo = valor === 1;
+  const verificaSeValorForNegativo = valor === -1;
+
   return (
     <ValorAcaoVaricacao
       acaoCor={
-        ((valor === 1) && 'success') ||
-        ((valor === -1) && 'danger') ||
+        ((verificaSeValorForPositivo) && 'success') ||
+        ((verificaSeValorForNegativo) && 'danger') ||
         ''}
     >
-      {(valor === 1) && `+${props.porcentagem}%`}
-      {(valor === -1) && `-${props.porcentagem}%`}
-      {`${props.porcentagem}%`}
-      <img
-        src={((valor === 1) && graph_up) || ((valor === -1) && graph_down) || ""}
-        alt={((valor === 1) && "graph_up") || ((valor === -1) && "graph_down") || ""}
-      />
+      {((verificaSeValorForPositivo) && `+${props.porcentagem}%`) ||
+      ((verificaSeValorForNegativo) && `${props.porcentagem}%`)}
+      {/* {`${props.porcentagem}%`} */}
     </ValorAcaoVaricacao>
   );
 }
