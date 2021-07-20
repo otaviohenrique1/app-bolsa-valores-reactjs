@@ -2,6 +2,11 @@ import styled from "styled-components";
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 import star_fill from "../../assets/images/star_fill.svg";
 import graph_down from "../../assets/images/graph-down.svg";
+import { EmpresaDados } from "../Empresa";
+import { ValorAcaoPorcentagem, ValorAcaoVaricacao } from "../ValorAcao";
+import { BotaoFavorito } from "../BotaoFavorito";
+import { useState } from "react";
+import graph_up from "../../assets/images/graph-up.svg";
 
 const GraficoContainer = styled.div`
   background: blue;
@@ -58,14 +63,6 @@ const AreaDadosEmpresa = styled.div`
   }
 `;
 
-const CodigoEmpresa = styled.span`
-  font-weight: bold;
-`;
-
-const NomeEmpresa = styled.span`
-  font-weight: normal;
-`;
-
 const AreaDadosAcoes = styled.div`
   position: absolute;
   width: 110px;
@@ -79,10 +76,10 @@ const ValorAcao = styled.span`
   font-weight: bold;
 `;
 
-const ValorAcaoVaricacao = styled.span`
-  font-weight: normal;
-  color: red;
-`;
+// const ValorAcaoVaricacao = styled.span`
+//   font-weight: normal;
+//   color: red;
+// `;
 
 const AreaGrafico = styled.div`
   position: static;
@@ -111,18 +108,25 @@ export function Grafico() {
       <AreaDados>
         <AreaDadosEmpresa>
           <span>
-            <img src={star_fill} alt="star" />
+            <BotaoFavorito />
           </span>
           <div>
-            <CodigoEmpresa>MSFT</CodigoEmpresa><br />
-            <NomeEmpresa>Microsoft</NomeEmpresa>
+            <EmpresaDados
+              codigo_empresa={"MSFT"}
+              nome_empresa={"Microsoft"}
+            />
           </div>
         </AreaDadosEmpresa>
         <AreaDadosAcoes>
           <ValorAcao>
             <img src={graph_down} alt="graph_down" /> $265,42
           </ValorAcao><br />
-          <ValorAcaoVaricacao>$-0.09 (-0.03%)</ValorAcaoVaricacao>
+          <ValorAcaoVaricacao>
+            $-0.09{' '}
+            {/* (-0.03%) */}
+            <ValorAcaoPorcentagem2 porcentagem={-0.03} />
+            {/* (<ValorAcaoPorcentagem porcentagem={2.3} />) */}
+          </ValorAcaoVaricacao>
         </AreaDadosAcoes>
       </AreaDados>
       <AreaGrafico>
@@ -135,5 +139,38 @@ export function Grafico() {
         </LineChart>
       </AreaGrafico>
     </GraficoContainer>
+  );
+}
+
+export const ValorAcaoVaricacao2 = styled.span<{ acaoCor?: 'success' | 'danger' | ''; }>`
+  font-weight: normal;
+  color: ${(props) =>
+    (props.acaoCor === 'success' && '#79C300') ||
+    (props.acaoCor === 'danger' && '#D64B45')
+  };
+
+  img {
+    padding-left: 5px;
+    text-align: end;
+  }
+`;
+
+
+function ValorAcaoPorcentagem2(props: { porcentagem: number }) {
+  let valor = Math.sign(props.porcentagem);
+
+  return (
+    <ValorAcaoVaricacao2
+      acaoCor={((valor === 1) && 'success') || ((valor === -1) && 'danger') || ''}
+    >
+      {(valor === 1) && `+${props.porcentagem}%`}
+      {(valor === -1) && `${props.porcentagem}%`}
+      {/* {`${props.porcentagem}%`} */}
+      <img
+        src={(valor === 1) ? graph_up : graph_down}
+        // src={(valor === 1) ? graph_up : graph_down}
+        alt={(valor === 1) ? "graph_up" : "graph_down"}
+      />
+    </ValorAcaoVaricacao2>
   );
 }

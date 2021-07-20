@@ -5,7 +5,6 @@ import stats_graph from "../../../assets/images/stats_graph.svg";
 import arrow_left from "../../../assets/images/arrow-left.svg";
 import arrow_right from "../../../assets/images/arrow-right.svg";
 import facebook from "../../../assets/images/facebook.svg";
-
 import { Item } from "../../../components/Item";
 
 const EmpresasRecentesContainer = styled.div`
@@ -101,7 +100,7 @@ export function EmpresasRecentes() {
         </div>
       </TituloContainer>
       <CardEmpresaContainer>
-        <Item
+        {/* <Item
           logo_empresa={{
             src: facebook,
             alt: "facebook"
@@ -111,9 +110,9 @@ export function EmpresasRecentes() {
             codigo_empresa: "Facebook"
           }}
           valor_porcentagem={{
-            porcentagem: +2.3
+            porcentagem: 2.3
           }}
-        />
+        /> */}
       </CardEmpresaContainer>
     </EmpresasRecentesContainer>
   );

@@ -8,7 +8,7 @@ export interface ValorAcaoVaricacaoStyleProps {
   success?: boolean;
   danger?: boolean;
   */
-  acaoCor?: 'success' | 'danger';
+  acaoCor?: 'success' | 'danger' | '';
 }
 
 export const ValorAcaoVaricacao = styled.span<ValorAcaoVaricacaoStyleProps>`
@@ -36,13 +36,35 @@ export interface ValorAcaoPorcentagemProps {
 }
 
 export function ValorAcaoPorcentagem(props: ValorAcaoPorcentagemProps) {
+  let valor = Math.sign(props.porcentagem);
+  return (
+    <ValorAcaoVaricacao
+      acaoCor={
+        ((valor === 1) && 'success') ||
+        ((valor === -1) && 'danger') ||
+        ''}
+    >
+      {(valor === 1) && `+${props.porcentagem}%`}
+      {(valor === -1) && `-${props.porcentagem}%`}
+      {`${props.porcentagem}%`}
+      <img
+        src={((valor === 1) && graph_up) || ((valor === -1) && graph_down) || ""}
+        alt={((valor === 1) && "graph_up") || ((valor === -1) && "graph_down") || ""}
+      />
+    </ValorAcaoVaricacao>
+  );
+}
+
+/*
+export function ValorAcaoPorcentagem(props: ValorAcaoPorcentagemProps) {
   const [valorAcaoImagem, setValorAcaoImagem] = useState<boolean>(false);
 
   let valor = Math.sign(props.porcentagem);
   
   if (valor === 1) {
     setValorAcaoImagem(true);
-  } else if (valor === -1) {
+  } 
+  if (valor === -1) {
     setValorAcaoImagem(false);
   }
 
@@ -50,6 +72,7 @@ export function ValorAcaoPorcentagem(props: ValorAcaoPorcentagemProps) {
     <ValorAcaoVaricacao acaoCor={(valorAcaoImagem) ? 'success' : 'danger'}>
       {(valor === 1) && `+${props.porcentagem}%`}
       {(valor === -1) && `-${props.porcentagem}%`}
+      {`${props.porcentagem}%`}
       <img
         src={(valorAcaoImagem) ? graph_up : graph_down}
         alt={(valorAcaoImagem) ? "graph_up" : "graph_down"}
@@ -61,3 +84,4 @@ export function ValorAcaoPorcentagem(props: ValorAcaoPorcentagemProps) {
     </ValorAcaoVaricacao>
   );
 }
+*/
