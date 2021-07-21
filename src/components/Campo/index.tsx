@@ -1,4 +1,5 @@
 import { ButtonHTMLAttributes } from "react";
+// import { InputHTMLAttributes } from "react";
 import styled from "styled-components";
 import { Field } from 'formik';
 import search from "../../assets/images/search.svg";
@@ -7,19 +8,14 @@ const ContainerCampoBusca = styled.div``;
 
 const BotaoBusca = styled.button`
   display: flex;
-  /* flex-direction: row; */
-  /* align-items: flex-start; */
   align-items: center;
   justify-content: center;
-  /* align-self: center; */
   padding: 8px;
-
   position: absolute;
   width: 40px;
   height: 40px;
   left: 460px;
   top: 100px;
-
   background: #0047BB;
   border-radius: 8px;
 `;
@@ -29,30 +25,15 @@ const FieldBusca = styled(Field)`
   flex-direction: row;
   align-items: flex-start;
   padding: 8px 16px;
-
   position: absolute;
   width: 364px;
   height: 40px;
   left: 116px;
   top: 92px;
-
   background: #FFFFFF;
   border: 1px solid #E1E0E7;
   border-radius: 8px;
 `;
-
-// const Img = styled.img`
-  /* position: static; */
-  /* height: 24px; */
-  /* left: 20%;
-  right: 20%;
-  top: calc(50% - 24px/2); */
-
-  /* flex: none; */
-  /* order: 0; */
-  /* flex-grow: 0; */
-  /* margin: 0px 10px; */
-// `;
 
 const Mensagem = styled.div`
   position: absolute;
@@ -91,5 +72,47 @@ export function CampoBusca(props: CampoBuscaProps) {
         <Mensagem>{props.erro}</Mensagem>
       </ContainerCampoBusca>
     </>
+  );
+}
+
+export const CampoFormulario = styled(Field)`
+  width: 350px;
+  line-height: 25px;
+`;
+
+export const CampoContainer = styled.div`
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const LabelCampo = styled.label`
+  margin-bottom: 10px;
+`;
+
+interface CampoProps {
+  htmlFor: string;
+  labelCampo: string
+  erro: any;
+  // props?: InputHTMLAttributes<HTMLInputElement>;
+  type: string;
+  name: string;
+  id: string;
+  placeholder: string;
+}
+
+export function Campo(props: CampoProps) {
+  return (
+    <CampoContainer>
+      <LabelCampo htmlFor={props.htmlFor}>{props.labelCampo}</LabelCampo>
+      <CampoFormulario
+      //  {...props.props}
+        type={props.type}
+        name={props.name}
+        id={props.id}
+        placeholder={props.placeholder}
+      />
+      {props.erro}
+    </CampoContainer>
   );
 }

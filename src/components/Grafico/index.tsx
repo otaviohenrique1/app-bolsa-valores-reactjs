@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 import { EmpresaDados } from "../Empresa";
-import { ImagemGraficoSeta, ValorAcaoPorcentagem, ValorAcaoVaricacao } from "../ValorAcao";
-import { BotaoFavorito } from "../BotaoFavorito";
+import { ImagemGraficoSeta, ValorAcaoEmpresa, ValorAcaoPorcentagemBox, ValorAcaoVaricacaoDinheiro } from "../ValorAcao";
+import { BotaoFavorito } from "../Botao";
+// import { BotaoFavorito } from "../BotaoFavorito";
+// import { ValorAcaoPorcentagem, ValorAcaoVaricacao } from "../ValorAcao";
 // import star_fill from "../../assets/images/star_fill.svg";
 // import graph_down from "../../assets/images/graph-down.svg";
 // import graph_up from "../../assets/images/graph-up.svg";
@@ -39,7 +41,7 @@ const AreaDados = styled.div`
 `;
 
 const AreaDadosEmpresa = styled.div`
-  img {
+  /* span {
     position: absolute;
     left: 2.67%;
     right: 94.12%;
@@ -59,7 +61,29 @@ const AreaDadosEmpresa = styled.div`
     line-height: 20px;
     letter-spacing: -0.005em;
     color: #14171A;
-  }
+  } */
+`;
+
+const BotaoFavoritoBox = styled.div`
+  position: absolute;
+  left: 2.67%;
+  right: 94.12%;
+  top: 10%;
+  bottom: 83.68%;
+`;
+
+const EmpresaDadosBox = styled.div`
+  position: absolute;
+  left: 7.09%;
+  right: 83.42%;
+  top: 7.89%;
+  bottom: 81.32%;
+  font-family: Graphik;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: -0.005em;
+  color: #14171A;
 `;
 
 const AreaDadosAcoes = styled.div`
@@ -69,10 +93,6 @@ const AreaDadosAcoes = styled.div`
   left: 623px;
   top: 25px;
   text-align: end;
-`;
-
-const ValorAcao = styled.span`
-  font-weight: bold;
 `;
 
 // const ValorAcaoVaricacao = styled.span`
@@ -106,28 +126,28 @@ export function Grafico() {
     <GraficoContainer>
       <AreaDados>
         <AreaDadosEmpresa>
-          <span>
+          <BotaoFavoritoBox>
             <BotaoFavorito />
-          </span>
-          <div>
+          </BotaoFavoritoBox>
+          <EmpresaDadosBox>
             <EmpresaDados
               codigo_empresa={"MSFT"}
               nome_empresa={"Microsoft"}
             />
-          </div>
+          </EmpresaDadosBox>
         </AreaDadosEmpresa>
         <AreaDadosAcoes>
-          <ValorAcao>
+          <ValorAcaoEmpresa>
             {/* <img src={graph_down} alt="graph_down" /> */}
             <ImagemGraficoSeta porcentagem={-0.03}  />
             {' '}
             $265,42
-          </ValorAcao><br />
-          <ValorAcaoVaricacao>
-            $-0.09
+          </ValorAcaoEmpresa><br />
+          <div>
+            <ValorAcaoVaricacaoDinheiro valorVariacaoDinheiro={-0.09} />
             {' '}
-            (<ValorAcaoPorcentagem porcentagem={-0.03} />)
-          </ValorAcaoVaricacao>
+            <ValorAcaoPorcentagemBox porcentagem={-0.03}/>
+          </div>
         </AreaDadosAcoes>
       </AreaDados>
       <AreaGrafico>

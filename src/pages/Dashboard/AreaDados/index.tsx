@@ -1,6 +1,6 @@
 import { Form, Formik } from "formik";
 import styled from "styled-components";
-import { CampoBusca } from "../../../components/CampoBusca";
+import { CampoBusca } from "../../../components/Campo";
 import * as Yup from "yup";
 import { Titulo } from "../../../components/Titulo";
 import { Grafico } from "../../../components/Grafico";

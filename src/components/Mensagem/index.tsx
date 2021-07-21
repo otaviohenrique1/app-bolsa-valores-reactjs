@@ -10,8 +10,8 @@ export const ErroMensagem = styled.p`
   text-align: start;
   color: white;
   margin-top: 0;
-  margin-right: 15px;
-  margin-left: 15px;
+  /* margin-right: 15px; */
+  /* margin-left: 15px; */
   /* margin-bottom: 5px; */
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;

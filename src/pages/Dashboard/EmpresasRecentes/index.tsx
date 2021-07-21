@@ -1,9 +1,9 @@
 import styled from "styled-components";
 // import star_fill from "../../../assets/images/star_fill.svg";
 // import graph_down from "../../../assets/images/graph-down.svg";
+// import arrow_left from "../../../assets/images/arrow-left.svg";
+// import arrow_right from "../../../assets/images/arrow-right.svg";
 import stats_graph from "../../../assets/images/stats_graph.svg";
-import arrow_left from "../../../assets/images/arrow-left.svg";
-import arrow_right from "../../../assets/images/arrow-right.svg";
 import facebook from "../../../assets/images/facebook.svg";
 import { Item } from "../../../components/Item";
 import { ButtonHTMLAttributes } from "react";
@@ -101,11 +101,12 @@ const BotaoSetaStyle = styled.button`
   border: none;
   background: none;
   color: #0047BB;
-  svg:hover {
+  svg:active {
     color: darkblue;
   }
-  &:hover {
+  &:active {
     background: lightgray;
+    border-radius: 100%;
   }
 `;
 

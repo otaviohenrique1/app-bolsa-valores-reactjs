@@ -1,8 +1,9 @@
-import { Field, Form, Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import { useHistory } from 'react-router-dom';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import * as Yup from "yup";
-import { Button, ButtonContainer } from '../../components/Botao';
+import { Botao, BotaoContainer } from '../../components/Botao';
+import { Campo } from '../../components/Campo';
 import { ErroMensagem } from '../../components/Mensagem';
 
 interface FormTypes {
@@ -27,7 +28,6 @@ export function Login() {
       .string()
       .min(8)
       .max(32)
-      // .matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*d)[a-zA-Zd]$")
       .required('O campo senha é obrigatorio'),
   });
 
@@ -38,9 +38,131 @@ export function Login() {
 
   return (
     <FormularioContainer>
-      <div className="titulo-container">
-        <h1>Login</h1>
-      </div>
+      <Titulo titulo={"Login"} />
+      <Formik
+        validationSchema={validationSchema}
+        initialValues={initialValues}
+        onSubmit={handleSubmitForm}
+      >
+        {({errors, touched}) => (
+          <Form>
+            <Campo
+              htmlFor="email"
+              labelCampo="Email"
+              // props={{
+              //   type: "email",
+              //   name: "email",
+              //   id: "email"
+              // }}
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Digite o email"
+              erro={(errors.email && touched.email) ? (
+                <ErroMensagem>{errors.email}</ErroMensagem>
+              ) : null}
+            />
+            <Campo
+              htmlFor="senha"
+              labelCampo="Senha"
+              // props={{
+              //   type: "password",
+              //   name: "senha",
+              //   id: "senha"
+              // }}
+              type="password"
+              name="senha"
+              id="senha"
+              placeholder="Digite a senha"
+              erro={(errors.email && touched.email) ? (
+                <ErroMensagem>{errors.email}</ErroMensagem>
+              ) : null}
+            />
+            {/* <CampoContainer>
+              <label htmlFor="email">email</label>
+              <div>
+                <CampoFormulario
+                  type="email"
+                  name="email"
+                  id="email"
+                />
+              </div>
+              {(errors.email && touched.email) ? (<ErroMensagem>{errors.email}</ErroMensagem>) : null}
+            </CampoContainer> */}
+            {/* <CampoContainer>
+              <label htmlFor="senha">senha</label>
+              <div>
+                <CampoFormulario
+                  type="password"
+                  name="senha"
+                  id="senha"
+                />
+              </div>
+              {(errors.senha && touched.senha) ? (<ErroMensagem>{errors.senha}</ErroMensagem>) : null}
+            </CampoContainer> */}
+            <BotaoContainer>
+              <Botao primary type="submit">Salvar</Botao>
+              <Botao danger type="reset">Limpar</Botao>
+              <Botao secondary type="button">Novo Usuario</Botao>
+              {/* <Botao type="button">Teste</Botao> */}
+            </BotaoContainer>
+          </Form>
+        )}
+      </Formik>
+    </FormularioContainer>
+  );
+}
+
+
+const FormularioContainer = styled.div`
+  margin: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const TituloEstilizado = styled.h1`
+  width: 100%;
+  background-color: aliceblue;
+  text-align: center;
+`;
+
+interface TituloProps {
+  titulo: string;
+}
+
+function Titulo(props: TituloProps) {
+  return (
+    <TituloEstilizado>
+      {props.titulo}
+    </TituloEstilizado>
+  );
+}
+
+/*
+  export function Login() {
+  const history = useHistory();
+  
+  const validationSchema = Yup.object().shape({
+    email: Yup
+      .string()
+      .email()
+      .required('O campo email é obrigatorio'),
+    senha: Yup
+      .string()
+      .min(8)
+      .max(32)
+      .required('O campo senha é obrigatorio'),
+  });
+
+  async function handleSubmitForm(values: FormTypes) {
+    alert(`Email: ${values.email}`);
+    history.push('/home');
+  }
+
+  return (
+    <FormularioContainer>
+      <Titulo titulo={"Login"} />
       <Formik
         validationSchema={validationSchema}
         initialValues={initialValues}
@@ -51,7 +173,7 @@ export function Login() {
             <CampoContainer>
               <label htmlFor="email">email</label>
               <div>
-                <Field
+                <CampoFormulario
                   type="email"
                   name="email"
                   id="email"
@@ -70,42 +192,15 @@ export function Login() {
               </div>
               {(errors.senha && touched.senha) ? (<ErroMensagem>{errors.senha}</ErroMensagem>) : null}
             </CampoContainer>
-            <ButtonContainer>
-              <Button primary type="submit">Salvar</Button>
-              <Button danger type="reset">Limpar</Button>
-              <Button secondary type="button">Voltar</Button>
-              <Button type="button">Teste</Button>
-            </ButtonContainer>
-          </Form>
-        )}
-      </Formik>
-    </FormularioContainer>
-  );
-}
-
-const FormularioContainer = styled.div`
-  margin: 20px;
-`;
-
-const CampoFormulario = styled(Field)`
-  margin-right: 15px;
-  margin-left: 15px;
-`;
-
-const CampoContainer = styled.div`
-  margin-top: 10px;
-  div {
-    width: 100%;
-  }
-`;
-
-css`
-  .titulo-container {
-    width: 100%;
-    background-color: aliceblue;
-  }
-
-  .titulo-container h1 {
-    text-align: center;
-  }
-`;
+            <BotaoContainer>
+              <Botao primary type="submit">Salvar</Botao>
+              <Botao danger type="reset">Limpar</Botao>
+              <Botao secondary type="button">Novo Usuario</Botao>
+              </BotaoContainer>
+              </Form>
+            )}
+          </Formik>
+        </FormularioContainer>
+      );
+    }
+*/

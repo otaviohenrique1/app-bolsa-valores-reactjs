@@ -2,7 +2,11 @@ import styled from "styled-components";
 import graph_up from "../../assets/images/graph-up.svg";
 import graph_down from "../../assets/images/graph-down.svg";
 
-export interface ValorAcaoVaricacaoStyleProps {
+export const ValorAcaoEmpresa = styled.span`
+  font-weight: bold;
+`;
+
+export interface ValorAcaoVariacaoStyleProps {
   /*
   success?: boolean;
   danger?: boolean;
@@ -10,7 +14,7 @@ export interface ValorAcaoVaricacaoStyleProps {
   acaoCor?: 'success' | 'danger' | '';
 }
 
-export const ValorAcaoVaricacao = styled.span<ValorAcaoVaricacaoStyleProps>`
+export const ValorAcaoVariacao = styled.span<ValorAcaoVariacaoStyleProps>`
   font-weight: normal;
   color: ${(props) =>
     (props.acaoCor === 'success' && '#79C300') ||
@@ -62,7 +66,7 @@ export function ValorAcaoPorcentagem(props: ValorAcaoPorcentagemProps) {
   const verificaSeValorForNegativo = valor === -1;
 
   return (
-    <ValorAcaoVaricacao
+    <ValorAcaoVariacao
       acaoCor={
         ((verificaSeValorForPositivo) && 'success') ||
         ((verificaSeValorForNegativo) && 'danger') ||
@@ -71,7 +75,46 @@ export function ValorAcaoPorcentagem(props: ValorAcaoPorcentagemProps) {
       {((verificaSeValorForPositivo) && `+${props.porcentagem}%`) ||
       ((verificaSeValorForNegativo) && `${props.porcentagem}%`)}
       {/* {`${props.porcentagem}%`} */}
-    </ValorAcaoVaricacao>
+    </ValorAcaoVariacao>
+  );
+}
+
+export function ValorAcaoPorcentagemBox(props: ValorAcaoPorcentagemProps) {
+  let valor = Math.sign(props.porcentagem);
+  const verificaSeValorForPositivo = valor === 1;
+  const verificaSeValorForNegativo = valor === -1;
+
+  return (
+    <ValorAcaoVariacao
+      acaoCor={
+        ((verificaSeValorForPositivo) && 'success') ||
+        ((verificaSeValorForNegativo) && 'danger') ||
+        ''}
+    >
+      (<ValorAcaoPorcentagem porcentagem={props.porcentagem} />)
+    </ValorAcaoVariacao>
+  );
+}
+
+interface ValorAcaoVariacaoDinheiroProps {
+  valorVariacaoDinheiro: number;
+}
+
+export function ValorAcaoVaricacaoDinheiro(props: ValorAcaoVariacaoDinheiroProps) {
+  let valor = Math.sign(props.valorVariacaoDinheiro);
+  const verificaSeValorForPositivo = valor === 1;
+  const verificaSeValorForNegativo = valor === -1;
+
+  return (
+    <ValorAcaoVariacao
+      acaoCor={
+        ((verificaSeValorForPositivo) && 'success') ||
+        ((verificaSeValorForNegativo) && 'danger') ||
+        ''}
+    >
+      ${((verificaSeValorForPositivo) && `+${props.valorVariacaoDinheiro}`) ||
+      ((verificaSeValorForNegativo) && `${props.valorVariacaoDinheiro}`)}
+    </ValorAcaoVariacao>
   );
 }
 

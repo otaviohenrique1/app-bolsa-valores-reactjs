@@ -2,6 +2,10 @@ import styled from "styled-components";
 import avatar from "../../../assets/images/avatar.png";
 import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 import { useState } from "react";
+import { ItemFavoritado } from "../../../components/Item";
+import twitter from "../../../assets/images/twitter.svg";
+import amazon from "../../../assets/images/amazon.svg";
+import starbuucks from "../../../assets/images/starbuucks.svg";
 
 const Div = styled.div`
   background-color: #FFFFFF;
@@ -61,7 +65,7 @@ const UsuarioNome = styled.p`
   color: #0047BB;
 `;
 
-const Span = styled.span`
+const DropdownBotao = styled.span`
   width: 16px;
   height: 16px;
 `;
@@ -74,14 +78,55 @@ export function AreaUsuario() {
       <UsuarioDropdown>
         <UsuarioDropdownAvatar src={avatar} alt="Avatar usuario" />
         <UsuarioNome>João da Silva Almeida Magalhães</UsuarioNome>
-        <Span onClick={() => setOpen(!open)}>
+        <DropdownBotao onClick={() => setOpen(!open)}>
           {(open) ? (
             <TiArrowSortedUp width={12} height={6} color="#F06400" />
           ) : (
             <TiArrowSortedDown width={12} height={6} color="#F06400" />
           )}
-        </Span>
+        </DropdownBotao>
       </UsuarioDropdown>
+      <div>
+        <ItemFavoritado
+          logo_empresa={{
+            src: twitter,
+            alt: "twitter"
+          }}
+          empresa_dados={{
+            nome_empresa: "TWTR",
+            codigo_empresa: "Twitter"
+          }}
+          valor_porcentagem={{
+            porcentagem: 15.8
+          }}
+        />
+        <ItemFavoritado
+          logo_empresa={{
+            src: amazon,
+            alt: "amazon"
+          }}
+          empresa_dados={{
+            nome_empresa: "AMZN",
+            codigo_empresa: "Amazon"
+          }}
+          valor_porcentagem={{
+            porcentagem: 10.0
+          }}
+        />
+        <ItemFavoritado
+          logo_empresa={{
+            src: starbuucks,
+            alt: "starbuucks"
+          }}
+          empresa_dados={{
+            nome_empresa: "SBUX",
+            codigo_empresa: "Starbucks"
+          }}
+          valor_porcentagem={{
+            porcentagem: -2.01
+          }}
+        />
+      </div>
     </Div>
   );
 }
