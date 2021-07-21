@@ -1,10 +1,12 @@
 import { Form, Formik } from 'formik';
-import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
+import { Link, useHistory } from 'react-router-dom';
+// import styled from 'styled-components';
 import * as Yup from "yup";
 import { Botao, BotaoContainer } from '../../components/Botao';
 import { Campo } from '../../components/Campo';
+import { FormularioContainer } from '../../components/Formulario';
 import { ErroMensagem } from '../../components/Mensagem';
+import { Titulo } from '../../components/Titulo';
 
 interface FormTypes {
   email: string;
@@ -49,11 +51,6 @@ export function Login() {
             <Campo
               htmlFor="email"
               labelCampo="Email"
-              // props={{
-              //   type: "email",
-              //   name: "email",
-              //   id: "email"
-              // }}
               type="email"
               name="email"
               id="email"
@@ -65,46 +62,20 @@ export function Login() {
             <Campo
               htmlFor="senha"
               labelCampo="Senha"
-              // props={{
-              //   type: "password",
-              //   name: "senha",
-              //   id: "senha"
-              // }}
               type="password"
               name="senha"
               id="senha"
               placeholder="Digite a senha"
-              erro={(errors.email && touched.email) ? (
-                <ErroMensagem>{errors.email}</ErroMensagem>
+              erro={(errors.senha && touched.senha) ? (
+                <ErroMensagem>{errors.senha}</ErroMensagem>
               ) : null}
             />
-            {/* <CampoContainer>
-              <label htmlFor="email">email</label>
-              <div>
-                <CampoFormulario
-                  type="email"
-                  name="email"
-                  id="email"
-                />
-              </div>
-              {(errors.email && touched.email) ? (<ErroMensagem>{errors.email}</ErroMensagem>) : null}
-            </CampoContainer> */}
-            {/* <CampoContainer>
-              <label htmlFor="senha">senha</label>
-              <div>
-                <CampoFormulario
-                  type="password"
-                  name="senha"
-                  id="senha"
-                />
-              </div>
-              {(errors.senha && touched.senha) ? (<ErroMensagem>{errors.senha}</ErroMensagem>) : null}
-            </CampoContainer> */}
             <BotaoContainer>
               <Botao primary type="submit">Salvar</Botao>
               <Botao danger type="reset">Limpar</Botao>
-              <Botao secondary type="button">Novo Usuario</Botao>
-              {/* <Botao type="button">Teste</Botao> */}
+              <Link to={'/novo_usuario'}>
+                <Botao secondary type="button">Novo Usuario</Botao>
+              </Link>
             </BotaoContainer>
           </Form>
         )}
@@ -113,31 +84,30 @@ export function Login() {
   );
 }
 
-
-const FormularioContainer = styled.div`
-  margin: 20px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-`;
-
-const TituloEstilizado = styled.h1`
-  width: 100%;
-  background-color: aliceblue;
-  text-align: center;
-`;
-
-interface TituloProps {
-  titulo: string;
-}
-
-function Titulo(props: TituloProps) {
-  return (
-    <TituloEstilizado>
-      {props.titulo}
-    </TituloEstilizado>
-  );
-}
+/*
+  <CampoContainer>
+    <label htmlFor="email">email</label>
+    <div>
+      <CampoFormulario
+        type="email"
+        name="email"
+        id="email"
+      />
+    </div>
+    {(errors.email && touched.email) ? (<ErroMensagem>{errors.email}</ErroMensagem>) : null}
+  </CampoContainer>
+  <CampoContainer>
+    <label htmlFor="senha">senha</label>
+    <div>
+      <CampoFormulario
+        type="password"
+        name="senha"
+        id="senha"
+      />
+    </div>
+    {(errors.senha && touched.senha) ? (<ErroMensagem>{errors.senha}</ErroMensagem>) : null}
+  </CampoContainer>
+*/
 
 /*
   export function Login() {

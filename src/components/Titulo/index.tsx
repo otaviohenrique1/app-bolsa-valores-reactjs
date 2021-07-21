@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const TituloContainer = styled.div`
+const TituloDashboardContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -31,14 +31,32 @@ const TituloContainer = styled.div`
   }
 `;
 
+interface TituloDashboardProps {
+  titulo: string;
+}
+
+export function TituloDashboard(props: TituloDashboardProps) {
+  return (
+    <TituloDashboardContainer>
+      <h1>{props.titulo}</h1>
+    </TituloDashboardContainer>
+  );
+}
+
+const TituloEstilizado = styled.h1`
+  width: 100%;
+  background-color: aliceblue;
+  text-align: center;
+`;
+
 interface TituloProps {
   titulo: string;
 }
 
 export function Titulo(props: TituloProps) {
   return (
-    <TituloContainer>
-      <h1>{props.titulo}</h1>
-    </TituloContainer>
+    <TituloEstilizado>
+      {props.titulo}
+    </TituloEstilizado>
   );
 }

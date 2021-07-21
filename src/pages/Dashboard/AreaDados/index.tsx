@@ -2,7 +2,7 @@ import { Form, Formik } from "formik";
 import styled from "styled-components";
 import { CampoBusca } from "../../../components/Campo";
 import * as Yup from "yup";
-import { Titulo } from "../../../components/Titulo";
+import { TituloDashboard } from "../../../components/Titulo";
 import { Grafico } from "../../../components/Grafico";
 import { EmpresasRecentes } from "../EmpresasRecentes";
 
@@ -31,7 +31,7 @@ export function AreaDados() {
 
   return (
     <Container>
-      <Titulo
+      <TituloDashboard
         titulo="Dashboard"
       />
       <Formik
