@@ -6,7 +6,7 @@ import { ErroMensagem } from '../../components/Mensagem';
 import { Botao, BotaoContainer } from '../../components/Botao';
 import { FormularioContainer } from '../../components/Formulario';
 import { Titulo } from '../../components/Titulo';
-import {  } from "module";
+import IndexedDb from '../../utils/IndexedDb';
 
 interface FormTypes {
   nome: string;
@@ -39,22 +39,13 @@ export function CadastroUsuario() {
   });
 
   async function handleSubmitForm(values: FormTypes) {
-    // alert(`Nome: ${values.nome}
-    // Email: ${values.email}`);
-    // let db;
-    // let request = indexedDB.open("api_usuario_cadastro");
-    // request.onerror = function(event) {
-    //   alert("Erro");
-    //   // alert("Database error: " + event.target.errorCode);
-    // };
-    // request.onsuccess = function(event) {
-    //   db = request.result;
-    // }
-    // request.onupgradeneeded = function(event) {
-    //   console.log('Criando ou atualizando o banco');
-    //   let connection = event.target.result;
-    //   connection.createObjectStore('usuarios');
-    // }
+    const indexedDb = new IndexedDb('api_app-bolsa-valores-reactjs');
+    await indexedDb.createObjectStore(['usuarios']);
+    await indexedDb.putValue('usuarios', {
+      nome: values.nome,
+      email: values.nome,
+      senha: values.senha
+    });
     alert(`Dados cadastrados`);
     history.push('/home');
   }

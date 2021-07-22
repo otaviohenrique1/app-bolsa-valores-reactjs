@@ -34,7 +34,7 @@ export function Login() {
   });
 
   async function handleSubmitForm(values: FormTypes) {
-    alert(`Email: ${values.email}`);
+    // alert(`Email: ${values.email}`);
     history.push('/home');
   }
 
@@ -75,6 +75,9 @@ export function Login() {
               <Botao danger type="reset">Limpar</Botao>
               <Link to={'/novo_usuario'}>
                 <Botao secondary type="button">Novo Usuario</Botao>
+              </Link>
+              <Link to={'/teste'}>
+                <Botao type="button">Teste</Botao>
               </Link>
             </BotaoContainer>
           </Form>
