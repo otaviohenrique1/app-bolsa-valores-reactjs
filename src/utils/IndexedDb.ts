@@ -1,15 +1,16 @@
-import { IDBPDatabase, openDB, DBSchema } from "idb";
+import { IDBPDatabase, openDB } from "idb";
+// import { DBSchema } from "idb";
 
-interface IndexedDbSchema extends DBSchema {
-  usuarios: {
-    value: {
-      nome: string;
-      email: string;
-      senha: string;
-    };
-    key: string;
-  };
-}
+// interface IndexedDbSchema extends DBSchema {
+//   usuarios: {
+//     value: {
+//       nome: string;
+//       email: string;
+//       senha: string;
+//     };
+//     key: string;
+//   };
+// }
 
 export default class IndexedDb {
   private database: string;

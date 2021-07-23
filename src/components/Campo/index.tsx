@@ -35,7 +35,7 @@ const FieldBusca = styled(Field)`
   border-radius: 8px;
 `;
 
-const Mensagem = styled.div`
+const MensagemErroCampoBusca = styled.div`
   position: absolute;
   left: 125px;
   top: 150px;
@@ -46,6 +46,7 @@ const Mensagem = styled.div`
   text-align: center;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
+  z-index: 1;
 `;
 
 interface CampoBuscaProps {
@@ -69,7 +70,7 @@ export function CampoBusca(props: CampoBuscaProps) {
         >
           <img src={search} alt="search" />
         </BotaoBusca>
-        <Mensagem>{props.erro}</Mensagem>
+        <MensagemErroCampoBusca>{props.erro}</MensagemErroCampoBusca>
       </ContainerCampoBusca>
     </>
   );

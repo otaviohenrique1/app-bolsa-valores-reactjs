@@ -3,6 +3,9 @@ import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts'
 import { EmpresaDados } from "../Empresa";
 import { ImagemGraficoSeta, ValorAcaoEmpresa, ValorAcaoPorcentagemBox, ValorAcaoVaricacaoDinheiro } from "../ValorAcao";
 import { BotaoFavorito } from "../Botao";
+import { useState } from "react";
+import { useEffect } from "react";
+import { favoritos } from "../../utils/apis/api_favoritos";
 // import { BotaoFavorito } from "../BotaoFavorito";
 // import { ValorAcaoPorcentagem, ValorAcaoVaricacao } from "../ValorAcao";
 // import star_fill from "../../assets/images/star_fill.svg";
@@ -112,15 +115,37 @@ const AreaGrafico = styled.div`
   margin: 10px 0px;
 `;
 
+// interface DataGraficoProps {
+//   param2
+// }
+
+interface DataExemploProps {
+  name: string;
+  uv: number;
+  pv: number;
+  amt: number;
+}
+
 export function Grafico() {
-  const data = [
-    {name: 'Page A', uv: 400, pv: 2400, amt: 2400},
-    {name: 'Page B', uv: 300, pv: 2400, amt: 2400},
-    {name: 'Page C', uv: 300, pv: 2400, amt: 2400},
-    {name: 'Page D', uv: 200, pv: 2400, amt: 2400},
-    {name: 'Page E', uv: 278, pv: 2400, amt: 2400},
-    {name: 'Page F', uv: 189, pv: 2400, amt: 2400},
-  ];
+  const [dataGrafico, setDataGrafico] = useState<DataExemploProps[]>([]);
+
+  useEffect(() => {
+    const dataExemplo = [
+      {name: '10:00', uv: 400, pv: 2400, amt: 2400},
+      {name: '10:30', uv: 300, pv: 2400, amt: 2400},
+      {name: '11:00', uv: 300, pv: 2400, amt: 2400},
+      {name: '12:00', uv: 200, pv: 2400, amt: 2400},
+      {name: '13:00', uv: 278, pv: 2400, amt: 2400},
+      {name: '14:00', uv: 189, pv: 2400, amt: 2400},
+      {name: '13:00', uv: 400, pv: 2400, amt: 2400},
+      {name: '15:00', uv: 300, pv: 2400, amt: 2400},
+      {name: '16:00', uv: 300, pv: 2400, amt: 2400},
+      {name: '17:00', uv: 200, pv: 2400, amt: 2400},
+      {name: '17:30', uv: 278, pv: 2400, amt: 2400},
+      {name: '18:00', uv: 1000, pv: 2400, amt: 2400},
+    ];
+    setDataGrafico(dataExemplo);
+  }, []);
 
   return (
     <GraficoContainer>
@@ -131,27 +156,27 @@ export function Grafico() {
           </BotaoFavoritoBox>
           <EmpresaDadosBox>
             <EmpresaDados
-              codigo_empresa={"MSFT"}
-              nome_empresa={"Microsoft"}
+              codigo_empresa={favoritos[4].codigo_empresa}
+              nome_empresa={favoritos[4].nome_empresa}
             />
           </EmpresaDadosBox>
         </AreaDadosEmpresa>
         <AreaDadosAcoes>
           <ValorAcaoEmpresa>
             {/* <img src={graph_down} alt="graph_down" /> */}
-            <ImagemGraficoSeta porcentagem={-0.03}  />
+            <ImagemGraficoSeta porcentagem={favoritos[4].porcentagem}  />
             {' '}
-            $265,42
+            {`$${(favoritos[4].valor_acao).toString().replace('.', ',')}`}
           </ValorAcaoEmpresa><br />
           <div>
-            <ValorAcaoVaricacaoDinheiro valorVariacaoDinheiro={-0.09} />
+            <ValorAcaoVaricacaoDinheiro valorVariacaoDinheiro={favoritos[4].valor_variacao_dinheiro} />
             {' '}
-            <ValorAcaoPorcentagemBox porcentagem={-0.03}/>
+            <ValorAcaoPorcentagemBox porcentagem={favoritos[4].porcentagem}/>
           </div>
         </AreaDadosAcoes>
       </AreaDados>
       <AreaGrafico>
-        <LineChart width={600} height={300} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+        <LineChart width={600} height={300} data={dataGrafico} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
           <Line type="monotone" dataKey="uv" stroke="#8884d8" />
           <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
           <XAxis dataKey="name" />

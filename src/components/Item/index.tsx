@@ -10,6 +10,8 @@ interface ItemProps {
   logo_empresa: LogoEmpresaProps;
   empresa_dados: EmpresaDadosProps;
   valor_porcentagem: ValorAcaoPorcentagemProps;
+  favoritado?: boolean;
+  idFavorito?: number;
 }
 
 interface ItemBoxProps {
@@ -31,7 +33,9 @@ const BotaoFavoritoEstilizado = styled(BotaoFavorito)`
 export function Item(props: ItemProps) {
   return (
     <CardEmpresaEstilizado>
-      <BotaoFavoritoEstilizado />
+      <BotaoFavoritoEstilizado
+        favoritado={props.favoritado}
+      />
       <ItemBox valor_flex={1.5}>
         <LogoEmpresa
           src={props.logo_empresa.src}
@@ -67,6 +71,7 @@ export function ItemFavoritado(props: ItemProps) {
   return (
     <ItemFavoritadoBox>
       <ItemEstilizado
+        favoritado={props.favoritado}
         logo_empresa={{
           src: props.logo_empresa.src,
           alt: props.logo_empresa.alt
@@ -80,7 +85,12 @@ export function ItemFavoritado(props: ItemProps) {
         }}
       />
       {/* <IoMdTrash size={24} /> */}
-      <BotaoRemover />
+      <BotaoRemover
+        onClick={() => {
+          alert(`Remover favorito ?
+          id => ${props.idFavorito}`);
+        }}
+      />
     </ItemFavoritadoBox>
   );
 }

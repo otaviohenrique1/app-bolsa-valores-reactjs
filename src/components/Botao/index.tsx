@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { HTMLAttributes, useState } from "react";
+import { HTMLAttributes, useState, useEffect } from "react";
 import { IoMdTrash } from "react-icons/io";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 
@@ -63,11 +63,26 @@ const IconBotaoFavoritoBox = styled.div`
   height: 24px;
 `;
 
-export function BotaoFavorito(props: HTMLAttributes<HTMLButtonElement>) {
+interface BotaoFavoritoProps extends HTMLAttributes<HTMLButtonElement> {
+  favoritado?: boolean;
+}
+
+export function BotaoFavorito(props: BotaoFavoritoProps) {
   const [isActive, setIsActive] = useState(false);
+  const [foiFavoritado, setFoiFavoritado] = useState(false);
+
+  useEffect(() => {
+    if (props.favoritado) {
+      setFoiFavoritado(props.favoritado);
+      setIsActive(foiFavoritado);
+    }
+    setFoiFavoritado(false);
+  }, [foiFavoritado, props.favoritado])
 
   return (
-    <BotaoEstilizado {...props}>
+    <BotaoEstilizado 
+      // {...props.buttonProps}
+    >
       <IconBotaoFavoritoBox
         onClick={() => setIsActive(!isActive)}
       >

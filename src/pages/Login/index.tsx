@@ -71,14 +71,14 @@ export function Login() {
               ) : null}
             />
             <BotaoContainer>
-              <Botao primary type="submit">Salvar</Botao>
+              <Botao primary type="submit">Entrar</Botao>
               <Botao danger type="reset">Limpar</Botao>
               <Link to={'/novo_usuario'}>
                 <Botao secondary type="button">Novo Usuario</Botao>
               </Link>
-              <Link to={'/teste'}>
+              {/* <Link to={'/teste'}>
                 <Botao type="button">Teste</Botao>
-              </Link>
+              </Link> */}
             </BotaoContainer>
           </Form>
         )}
