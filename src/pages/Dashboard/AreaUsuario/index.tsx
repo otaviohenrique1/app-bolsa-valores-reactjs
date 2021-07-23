@@ -1,4 +1,4 @@
-// import styled from "styled-components";
+import styled from "styled-components";
 import avatar from "../../../assets/images/avatar.png";
 import { ItemFavoritado } from "../../../components/Item";
 // import twitter from "../../../assets/images/twitter.svg";
@@ -6,28 +6,75 @@ import { ItemFavoritado } from "../../../components/Item";
 // import starbuucks from "../../../assets/images/starbuucks.svg";
 import { favoritos } from "../../../utils/apis/api_favoritos";
 import { Dropdown } from "../../../components/Dropdown";
+import { AiFillStar } from "react-icons/ai";
+import { useEffect, useState } from "react";
 // import { DropdownBotao, UsuarioDropdownAvatar, UsuarioDropdownNome, DropdownSeta } from "../../../components/Dropdown";
 
-// const AreaUsuarioBox = styled.div`
-//   background-color: transparent;
-//   width: 100%;
-// `;
+const AreaUsuarioBox = styled.div`
+  background-color: #FFFFFF;
+  width: 100%;
+`;
 
-// const AreaListaFavoritos = styled.div``;
+const AreaListaFavoritos = styled.div`
+  margin-top: 32px;
+`;
+
+const EmpresasFavoritasTitulo = styled.div`
+  font-family: Graphik;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 150%;
+  color: #14171A;
+  margin-top: 0px;
+  margin-bottom: 32px;
+  margin-left: 32px;
+  margin-right: 32px;
+  display: flex;
+
+  span {
+    padding-left: 11.64px;
+  }
+`;
+
+interface DataProps {
+  id: number;
+  favorito: boolean;
+  src: string;
+  alt: string;
+  nome_empresa: string;
+  codigo_empresa: string;
+  porcentagem: number;
+}
 
 export function AreaUsuario() {
+  const [data, setData] = useState<DataProps[]>([]);
+
+  useEffect(() => {
+    setData(favoritos);
+  }, []);
+
   return (
-    <Dropdown
-      avatarSrc={avatar}
-      avatarAlt="Avatar usuario"
-      usuarioNome="João da Silva Almeida Magalhães"
-    >
-      <>
+    <AreaUsuarioBox>
+      <Dropdown
+        avatarSrc={avatar}
+        avatarAlt="Avatar usuario"
+        usuarioNome="João da Silva Almeida Magalhães"
+      />
+      <AreaListaFavoritos>
+        <EmpresasFavoritasTitulo>
+          <AiFillStar
+            size={24}
+            color={'#0047BB'}
+          />
+          <span>Empresas favoritas</span>
+        </EmpresasFavoritasTitulo>
         {
-          favoritos.map((item, index) => {
+          data.map((item, index) => {
             return (
               <ItemFavoritado
                 key={index}
+                exibeBotaoFavorito={false}
                 favoritado={item.favorito}
                 logo_empresa={{
                   src: item.src,
@@ -45,10 +92,11 @@ export function AreaUsuario() {
             );
           })
         }
-      </>
-    </Dropdown>
+      </AreaListaFavoritos>
+    </AreaUsuarioBox>
   );
 }
+
 /* <DropdownBotao>
   <UsuarioDropdownAvatar src={avatar} alt="Avatar usuario" />
   <UsuarioDropdownNome>João da Silva Almeida Magalhães</UsuarioDropdownNome>

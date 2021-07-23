@@ -6,7 +6,7 @@ import stats_graph from "../../../assets/images/stats_graph.svg";
 import arrow_left from "../../../assets/images/arrow-left.svg";
 import arrow_right from "../../../assets/images/arrow-right.svg";
 import facebook from "../../../assets/images/facebook.svg";
-import { BotaoFavorito } from "../../../components/Botao/BotaoFavorito";
+import { BotaoFavorito } from "../../../utils/BotaoFavorito";
 
 const EmpresasRecentesContainer = styled.div`
 position: absolute;

@@ -12,6 +12,7 @@ interface ItemProps {
   valor_porcentagem: ValorAcaoPorcentagemProps;
   favoritado?: boolean;
   idFavorito?: number;
+  exibeBotaoFavorito?: boolean;
 }
 
 interface ItemBoxProps {
@@ -33,9 +34,11 @@ const BotaoFavoritoEstilizado = styled(BotaoFavorito)`
 export function Item(props: ItemProps) {
   return (
     <CardEmpresaEstilizado>
-      <BotaoFavoritoEstilizado
-        favoritado={props.favoritado}
-      />
+      {(props.exibeBotaoFavorito) && (
+        <BotaoFavoritoEstilizado
+          favoritado={props.favoritado}
+        />
+      )}
       <ItemBox valor_flex={1.5}>
         <LogoEmpresa
           src={props.logo_empresa.src}

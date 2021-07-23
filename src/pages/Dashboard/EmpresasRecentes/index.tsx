@@ -1,19 +1,13 @@
 import styled from "styled-components";
-// import star_fill from "../../../assets/images/star_fill.svg";
-// import graph_down from "../../../assets/images/graph-down.svg";
-// import arrow_left from "../../../assets/images/arrow-left.svg";
-// import arrow_right from "../../../assets/images/arrow-right.svg";
 import stats_graph from "../../../assets/images/stats_graph.svg";
-import facebook from "../../../assets/images/facebook.svg";
 import { Item } from "../../../components/Item";
-import { ButtonHTMLAttributes } from "react";
+import { ButtonHTMLAttributes, useEffect, useState } from "react";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+import { favoritos } from "../../../utils/apis/api_favoritos";
+import ReactPaginate from "react-paginate";
 
 const EmpresasRecentesContainer = styled.div`
 position: absolute;
-/* width: 749px; */
-/* height: 136px; */
-/* top: 450px; */
 background: #f1ecec;
 margin-top: 39px;
 width: 789px;
@@ -74,7 +68,7 @@ div {
   position: absolute;
   width: 36px;
   height: 12px;
-  left: 725px;
+  left: 710px;
   top: 7px;
 
   img {
@@ -88,11 +82,12 @@ const CardEmpresaContainer = styled.div`
   position: absolute;
   left: 15px;
   bottom: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
 `;
 
 interface BotaoSetaProps {
-  // src: string;
-  // alt: string;
   icon: any;
   props?: ButtonHTMLAttributes<HTMLButtonElement>;
 }
@@ -101,9 +96,11 @@ const BotaoSetaStyle = styled.button`
   border: none;
   background: none;
   color: #0047BB;
+
   svg:active {
     color: darkblue;
   }
+
   &:active {
     background: lightgray;
     border-radius: 100%;
@@ -113,40 +110,145 @@ const BotaoSetaStyle = styled.button`
 function BotaoSeta(props: BotaoSetaProps) {
   return (
     <BotaoSetaStyle type="button" {...props.props}>
-      {/* <img src={props.src} alt={props.alt} /> */}
       {props.icon}
     </BotaoSetaStyle>
   );
 }
 
+const ItemEstilizado = styled.div`
+  margin-right: 21px;
+  &:last-child {
+    margin-right: 0;
+  }
+`;
+
+interface DataProps {
+  id: number;
+  favorito: boolean;
+  src: string;
+  alt: string;
+  nome_empresa: string;
+  codigo_empresa: string;
+  porcentagem: number;
+}
+
 export function EmpresasRecentes() {
+  const [data, setData] = useState<DataProps[]>([]);
+  const [page, setPage] = useState<number>(0);
+  
+  const PER_PAGE = 2;
+  const offset = page * PER_PAGE;
+  const pageCount = Math.ceil(data.length / PER_PAGE);
+  
+  useEffect(() => {
+    setData(favoritos);
+  }, []);
+
+  // function handlePageClick({selected: selectedPage}) {
+  //   setPage(selectedPage);
+  // }
+
   return (
     <EmpresasRecentesContainer>
       <TituloContainer>
         <img src={stats_graph} alt="stats_graph" />
         <p>Empresas recentes</p>
         <div>
-          {/* <BotaoSeta src={MdKeyboardArrowLeft} alt="arrow_left" />
-          <BotaoSeta src={arrow_right} alt="arrow_right" /> */}
+          <BotaoSeta icon={<MdKeyboardArrowLeft size={30} />} />
+          <BotaoSeta icon={<MdKeyboardArrowRight size={30} />} />
+        </div>
+        <ReactPaginate
+          previousLabel={'Previous'}
+          nextLabel={'Next'}
+          breakLabel={'...'}
+          breakClassName={'break-me'}
+          pageCount={pageCount}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={2}
+          onPageChange={() => {}}
+        />
+      </TituloContainer>
+      <CardEmpresaContainer>
+        {data
+          .slice(offset, offset + PER_PAGE)
+          .map((item, index) => (
+            <ItemEstilizado
+              key={index}
+            >
+              <Item
+                exibeBotaoFavorito={true}
+                logo_empresa={{
+                  src: item.src,
+                  alt: item.alt
+                }}
+                empresa_dados={{
+                  nome_empresa: item.nome_empresa,
+                  codigo_empresa: item.codigo_empresa
+                }}
+                valor_porcentagem={{
+                  porcentagem: item.porcentagem
+                }}
+              />
+            </ItemEstilizado>
+        ))}
+      </CardEmpresaContainer>
+    </EmpresasRecentesContainer>
+  );
+}
+
+/*
+export function EmpresasRecentes() {
+  const [data, setData] = useState<DataProps[]>([]);
+  
+  useEffect(() => {
+    setData(favoritos);
+  }, []);
+
+  return (
+    <EmpresasRecentesContainer>
+      <TituloContainer>
+        <img src={stats_graph} alt="stats_graph" />
+        <p>Empresas recentes</p>
+        <div>
           <BotaoSeta icon={<MdKeyboardArrowLeft size={30} />} />
           <BotaoSeta icon={<MdKeyboardArrowRight size={30} />} />
         </div>
       </TituloContainer>
       <CardEmpresaContainer>
-        <Item
-          logo_empresa={{
-            src: facebook,
-            alt: "facebook"
-          }}
-          empresa_dados={{
-            nome_empresa: "FB",
-            codigo_empresa: "Facebook"
-          }}
-          valor_porcentagem={{
-            porcentagem: 2.3
-          }}
-        />
+        <ItemEstilizado>
+          <Item
+            exibeBotaoFavorito={true}
+            logo_empresa={{
+              src: favoritos[3].src,
+              alt: favoritos[3].alt
+            }}
+            empresa_dados={{
+              nome_empresa: favoritos[3].nome_empresa,
+              codigo_empresa: favoritos[3].codigo_empresa
+            }}
+            valor_porcentagem={{
+              porcentagem: favoritos[3].porcentagem
+            }}
+          />
+        </ItemEstilizado>
+        <ItemEstilizado>
+          <Item
+            exibeBotaoFavorito={true}
+            logo_empresa={{
+              src: favoritos[6].src,
+              alt: favoritos[6].alt
+            }}
+            empresa_dados={{
+              nome_empresa: favoritos[6].nome_empresa,
+              codigo_empresa: favoritos[6].codigo_empresa
+            }}
+            valor_porcentagem={{
+              porcentagem: favoritos[6].porcentagem
+            }}
+          />
+        </ItemEstilizado>
       </CardEmpresaContainer>
     </EmpresasRecentesContainer>
   );
 }
+*/

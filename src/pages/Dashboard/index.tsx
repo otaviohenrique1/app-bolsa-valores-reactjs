@@ -7,6 +7,7 @@ const Container = styled.div`
   height: 801px;
   display: grid;
   grid-template-columns: 0.5fr 4.5fr 2fr;
+  /* grid-template-columns: 0.5fr 6.5fr; */
   background-color: #C4C4C4;
 `;
 

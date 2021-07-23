@@ -1,5 +1,6 @@
 import { useState, ReactNode } from "react";
 import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const DropdownBotao = styled.button`
@@ -14,7 +15,7 @@ export const DropdownBotao = styled.button`
   top: 32px;
   box-sizing: border-box;
   border-radius: 120px;
-  margin: 32px 20px;
+  margin: 32px 20px 0;
   border-top: 1px solid rgba(0, 71, 187, 0.2);
   border-left: 1px solid rgba(0, 71, 187, 0.2);
   border-right: 1px solid rgba(0, 71, 187, 1.0);
@@ -46,9 +47,13 @@ export const UsuarioDropdownNome = styled.p`
   text-align: center;
   letter-spacing: -0.005em;
   color: #0047BB;
+  margin-right: 10px;
 `;
 
 export const DropdownBotaoEstilizado = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 16px;
   height: 16px;
 `;
@@ -60,10 +65,10 @@ interface DropdownSetaProps {
 export function DropdownSeta(props: DropdownSetaProps) {
   return (
     <DropdownBotaoEstilizado>
-      {(!props.isOpen) ? (
-        <TiArrowSortedUp width={12} height={6} color="#F06400" />
+      {(props.isOpen) ? (
+        <TiArrowSortedUp size={16} color="#F06400" />
       ) : (
-        <TiArrowSortedDown width={12} height={6} color="#F06400" />
+        <TiArrowSortedDown size={16} color="#F06400" />
       )}
     </DropdownBotaoEstilizado>
   );
@@ -71,11 +76,44 @@ export function DropdownSeta(props: DropdownSetaProps) {
 
 export const DropdownArea = styled.div`
   /* background-color: transparent; */
-  background-color: #FFFFFF;
-  width: 100%;
+  /* background-color: #FFFFFF;
+  width: 100%; */
 `;
 
-export const DropdownConteudo = styled.div``;
+export const DropdownConteudo = styled.div`
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  width: 394px;
+  position: absolute;
+  top: 72px;
+`;
+
+export const DropdownConteudoLista = styled.div`
+  padding: 5px 15px 10px;
+  margin: 0px 40px;
+  background: darkgray;
+  border-end-end-radius: 5px;
+  border-end-start-radius: 5px;
+`;
+
+export const DropdownConteudoBotao = styled.button`
+  width: 100%;
+  padding: 5px 10px;
+  text-align: left;
+  background: darkgray;
+  border: 0;
+  color: white;
+  font-family: Graphik;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  &:hover, &:focus {
+    color: black;
+    background: lightgray;
+  }
+`;
 
 interface DropdownProps {
   avatarSrc: string | "";
@@ -96,7 +134,17 @@ export function Dropdown(props: DropdownProps) {
       </DropdownBotao>
       {(isActive) && (
         <DropdownConteudo>
-          {props.children}
+          <DropdownConteudoLista>
+            <DropdownConteudoBotao>
+              Perfil
+            </DropdownConteudoBotao>
+            <hr />
+            <Link to={'/'}>
+              <DropdownConteudoBotao>
+                Sair
+              </DropdownConteudoBotao>
+            </Link>
+          </DropdownConteudoLista>
         </DropdownConteudo>
       )}
     </DropdownArea>
@@ -122,4 +170,16 @@ export function DropdownSeta(props: DropdownSetaProps) {
     </DropdownBotaoEstilizado>
   );
 }
+*/
+
+/*
+interface DropdownBotaoAreaStyleProps {
+  ativo?: boolean;
+}
+
+const DropdownBotaoArea = styled.div<DropdownBotaoAreaStyleProps>`
+  background: ${(props) => ((props.ativo) ? '#FFFFFF' : 'transparent')};
+  margin: ${(props) => ((props.ativo) ? '0px' : '32px 20px')};
+  padding: ${(props) => ((props.ativo) ? '32px 20px' : '0px')};
+`;
 */
