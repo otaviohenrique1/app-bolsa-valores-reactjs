@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import stats_graph from "../../../assets/images/stats_graph.svg";
 import { Item } from "../../../components/Item";
-import { useEffect, useState } from "react";
-import { favoritos } from "../../../utils/apis/api_favoritos";
+import { ButtonHTMLAttributes, useEffect, useState } from "react";
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+import { favoritos } from "../../apis/api_favoritos";
 import Carousel from "react-elastic-carousel";
 
 const EmpresasRecentesContainer = styled.div`
@@ -77,66 +78,47 @@ div {
 }
 `;
 
+const CardEmpresaContainer = styled.div`
+  position: absolute;
+  left: 15px;
+  bottom: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+`;
+
+interface BotaoSetaProps {
+  icon: any;
+  props?: ButtonHTMLAttributes<HTMLButtonElement>;
+}
+
+const BotaoSetaStyle = styled.button`
+  border: none;
+  background: none;
+  color: #0047BB;
+
+  svg:active {
+    color: darkblue;
+  }
+
+  &:active {
+    background: lightgray;
+    border-radius: 100%;
+  }
+`;
+
+function BotaoSeta(props: BotaoSetaProps) {
+  return (
+    <BotaoSetaStyle type="button" {...props.props}>
+      {props.icon}
+    </BotaoSetaStyle>
+  );
+}
+
 const ItemEstilizado = styled.div`
   margin-right: 21px;
   &:last-child {
     margin-right: 0;
-  }
-`;
-
-const CardEmpresaContainer = styled.div`
-  position: absolute;
-  left: 15px;
-  bottom: 0px;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  width: 96%;
-`;
-
-const CarouselEstilizado = styled(Carousel)`
-  div.rec.rec-carousel {
-    height: 73px;
-    margin-bottom: 17px;
-  }
-
-  button:first-child {
-    position: absolute;
-    top: -40px;
-    right: 25px;
-    font-size: 1em;
-    width: 25px;
-    min-width: 25px;
-    height: 25px;
-    line-height: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  button:last-child {
-    position: absolute;
-    top: -40px;
-    right: -10px;
-    font-size: 1em;
-    width: 25px;
-    min-width: 25px;
-    height: 25px;
-    line-height: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  div.rec.rec-slider-container {
-    margin: 0 10px;
-  }
-
-  div.rec.rec-pagination {
-    margin-top: 0;
-    display: none;
   }
 `;
 
@@ -162,10 +144,14 @@ export function EmpresasRecentes() {
       <TituloContainer>
         <img src={stats_graph} alt="stats_graph" />
         <p>Empresas recentes</p>
+        <div>
+          <BotaoSeta icon={<MdKeyboardArrowLeft size={30} />} />
+          <BotaoSeta icon={<MdKeyboardArrowRight size={30} />} />
+        </div>
       </TituloContainer>
       <CardEmpresaContainer>
-        <CarouselEstilizado
-          itemsToShow={2}
+        <Carousel
+          itemsToShow={3}
           isRTL={false}
         >
           {data.map((item, index) => (
@@ -188,7 +174,7 @@ export function EmpresasRecentes() {
                 />
               </ItemEstilizado>
           ))}
-        </CarouselEstilizado>
+        </Carousel>
       </CardEmpresaContainer>
     </EmpresasRecentesContainer>
   );
