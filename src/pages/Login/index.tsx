@@ -76,9 +76,6 @@ export function Login() {
               <Link to={'/novo_usuario'}>
                 <Botao secondary type="button">Novo Usuario</Botao>
               </Link>
-              {/* <Link to={'/teste'}>
-                <Botao type="button">Teste</Botao>
-              </Link> */}
             </BotaoContainer>
           </Form>
         )}
