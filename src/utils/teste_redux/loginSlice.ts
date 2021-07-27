@@ -1,5 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState, AppThunk } from './store';
+import { createSlice } from '@reduxjs/toolkit';
 
 export interface CounterState {
   id: string;
@@ -18,7 +17,7 @@ export const loginSlice = createSlice({
   initialState,
   reducers: {
     setId: (state) => {
-      state.id = id;
+      state.id = '';
     },
     setNome: (state) => {
       state.nome = '';
