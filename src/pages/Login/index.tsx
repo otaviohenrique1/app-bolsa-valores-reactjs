@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Form, Formik } from 'formik';
 import { Link, useHistory } from 'react-router-dom';
 // import styled from 'styled-components';
@@ -7,6 +8,10 @@ import { Campo } from '../../components/Campo';
 import { FormularioContainer } from '../../components/Formulario';
 import { ErroMensagem } from '../../components/Mensagem';
 import { Titulo } from '../../components/Titulo';
+import { Dispatch } from "redux";
+import { useCallback } from 'react';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { addLogin } from '../../store/actionCreators';
 
 interface FormTypes {
   email: string;
@@ -20,6 +25,15 @@ const initialValues = {
 
 export function Login() {
   const history = useHistory();
+
+  const loginDados: ILogin = useSelector(
+    (state: LoginState) => state,
+    shallowEqual
+  )
+
+  const dispatch: Dispatch<any> = useDispatch();
+
+  const saveLogin = useCallback((login: ILogin) => dispatch(addLogin(login)), [dispatch]);
   
   const validationSchema = Yup.object().shape({
     email: Yup
@@ -35,7 +49,13 @@ export function Login() {
 
   async function handleSubmitForm(values: FormTypes) {
     // alert(`Email: ${values.email}`);
-    history.push('/home');
+    saveLogin({
+      id: '1',
+      nome: 'Juca',
+      email: 'juca@email.com'
+    });
+    console.log(loginDados);
+    // history.push('/dashboard');
   }
 
   return (

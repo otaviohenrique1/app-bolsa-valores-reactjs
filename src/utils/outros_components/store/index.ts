@@ -1,6 +1,8 @@
 import { applyMiddleware, createStore, Store } from "redux";
 import thunk from "redux-thunk";
-import { reducerLogin, reducerFavorito, reducerEmpresasRecentes } from "./reducer";
+import reducerLogin from "./login/reducer";
+import reducerFavorito from "./favorito/reducer";
+import reducerEmpresasRecentes from "./empresa_recente/reducer";
 
 export const storeLogin: Store<
   LoginState,

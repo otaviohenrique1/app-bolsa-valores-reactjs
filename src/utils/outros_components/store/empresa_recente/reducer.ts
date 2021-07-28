@@ -1,11 +1,11 @@
 import * as actionTypes from "./actionTypes";
 
-const initialState: EmpresasRecentesState = {
+const initialStateEmpresasRecentes: EmpresasRecentesState = {
   empresasRecentes: [],
 };
 
-const reducer = (
-  state: EmpresasRecentesState = initialState,
+const reducerEmpresasRecentes = (
+  state: EmpresasRecentesState = initialStateEmpresasRecentes,
   action: EmpresasRecentesAction
 ): EmpresasRecentesState => {
   switch (action.type) {
@@ -36,4 +36,4 @@ const reducer = (
   return state;
 };
 
-export default reducer;
+export default reducerEmpresasRecentes;

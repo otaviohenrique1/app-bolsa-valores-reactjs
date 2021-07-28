@@ -4,6 +4,28 @@ interface ILogin {
   email: string;
 }
 
+type LoginState = { 
+  id: string;
+  nome: string;
+  email: string;
+}
+
+type LoginState2 = { 
+  login: ILogin[];
+}
+
+type LoginState3 = { 
+  login: ILogin;
+}
+
+type LoginAction = { 
+  type: string;
+  login: ILogin;
+}
+
+type DispatchTypeLogin = (args: LoginAction) => LoginAction;
+
+/* --------------------------------------------------------- */
 interface IEmpresas {
   id: number;
   favorito: boolean;
@@ -14,18 +36,9 @@ interface IEmpresas {
   porcentagem: number;
 }
 
+/* --------------------------------------------------------- */
+
 interface IFavorito extends IEmpresas {}
-
-interface IEmpresasRecentes extends IEmpresas {}
-
-type LoginState = { 
-  login: ILogin[];
-}
-
-type LoginAction = { 
-  type: string;
-  login: ILogin;
-}
 
 type FavoritoState = { 
   favoritos: IFavorito[];
@@ -36,6 +49,12 @@ type FavoritoAction = {
   favorito: IFavorito;
 }
 
+type DispatchTypeFavorito = (args: FavoritoAction) => FavoritoAction;
+
+/* --------------------------------------------------------- */
+
+interface IEmpresasRecentes extends IEmpresas {}
+
 type EmpresasRecentesState = { 
   empresasRecentes: IEmpresasRecentes[];
 }
@@ -44,9 +63,5 @@ type EmpresasRecentesAction = {
   type: string;
   empresaRecente: IEmpresasRecentes;
 }
-
-type DispatchTypeLogin = (args: LoginAction) => LoginAction;
-
-type DispatchTypeFavorito = (args: FavoritoAction) => FavoritoAction;
 
 type DispatchTypeEmpresasRecentes = (args: EmpresasRecentesAction) => EmpresasRecentesAction;

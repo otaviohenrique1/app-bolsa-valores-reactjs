@@ -1,11 +1,11 @@
 import * as actionTypes from "./actionTypes";
 
-const initialState: FavoritoState = {
+const initialStateFavorito: FavoritoState = {
   favoritos: [],
 };
 
-const reducer = (
-  state: FavoritoState = initialState,
+const reducerFavorito = (
+  state: FavoritoState = initialStateFavorito,
   action: FavoritoAction
 ): FavoritoState => {
   switch (action.type) {
@@ -36,4 +36,4 @@ const reducer = (
   return state;
 };
 
-export default reducer;
+export default reducerFavorito;
