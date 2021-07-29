@@ -173,6 +173,7 @@ export function EmpresasRecentes() {
                 key={index}
               >
                 <Item
+                  favoritado={item.favorito}
                   exibeBotaoFavorito={true}
                   logo_empresa={{
                     src: item.src,
