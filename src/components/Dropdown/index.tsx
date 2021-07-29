@@ -1,7 +1,10 @@
 import { useState, ReactNode } from "react";
 import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { useDispatch } from 'react-redux';
+import { removeLogin } from '../../features/login/loginSlice';
 
 export const DropdownBotao = styled.button`
   display: flex;
@@ -125,6 +128,19 @@ interface DropdownProps {
 export function Dropdown(props: DropdownProps) {
   const [isActive, setIsActive] = useState<boolean>(false);
 
+  const history = useHistory();
+
+  const dispatch = useDispatch();
+  
+  function handleClick() {
+    dispatch(removeLogin({
+      id: '',
+      nome: '',
+    }));
+
+    history.push('/');
+  }
+  
   return (
     <DropdownArea>
       <DropdownBotao onClick={() => setIsActive(!isActive)}>
@@ -139,11 +155,13 @@ export function Dropdown(props: DropdownProps) {
               Perfil
             </DropdownConteudoBotao>
             <hr />
-            <Link to={'/'}>
-              <DropdownConteudoBotao>
+            {/* <Link to={'/'}> */}
+              <DropdownConteudoBotao
+                onClick={() => handleClick()}
+              >
                 Sair
               </DropdownConteudoBotao>
-            </Link>
+            {/* </Link> */}
           </DropdownConteudoLista>
         </DropdownConteudo>
       )}

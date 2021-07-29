@@ -13,9 +13,9 @@ export const reducerLogin = (
   switch (action.type) {
     case actionTypes.ADD_LOGIN:
       return {
-          id: state.id,
-          nome: state.nome,
-          email: state.email
+        id: state.id,
+        nome: state.nome,
+        email: state.email
       };
     case actionTypes.REMOVE_LOGIN:
       return {

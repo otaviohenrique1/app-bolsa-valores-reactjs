@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Form, Formik } from 'formik';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 // import styled from 'styled-components';
 import * as Yup from "yup";
 import { Botao, BotaoContainer } from '../../components/Botao';
@@ -8,10 +8,20 @@ import { Campo } from '../../components/Campo';
 import { FormularioContainer } from '../../components/Formulario';
 import { ErroMensagem } from '../../components/Mensagem';
 import { Titulo } from '../../components/Titulo';
-import { Dispatch } from "redux";
-import { useCallback } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { addLogin } from '../../store/actionCreators';
+import { useDispatch } from 'react-redux';
+import { setLogin } from '../../features/login/loginSlice';
+import { RootState } from '../../features/app/store';
+import { useSelector } from 'react-redux';
+
+
+// import { Dispatch } from "redux";
+// import { useCallback } from 'react';
+// import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { getLogin } from '../../features/login/loginSlice';
+// import { addLogin, getLogin } from '../../features/login/loginSlice';
+// import { useState } from 'react';
+// import { addLogin } from '../../store/actionCreators';
 
 interface FormTypes {
   email: string;
@@ -26,14 +36,33 @@ const initialValues = {
 export function Login() {
   const history = useHistory();
 
-  const loginDados: ILogin = useSelector(
-    (state: LoginState) => state,
-    shallowEqual
-  )
+  // const loginDados: ILogin = useSelector(
+  //   (state: LoginState) => state,
+  //   shallowEqual
+  // )
 
-  const dispatch: Dispatch<any> = useDispatch();
+  // const dispatch: Dispatch<any> = useDispatch();
+  
+  // const saveLogin = useCallback((login: ILogin) => dispatch(addLogin(login)), [dispatch]);
+  
+  // const [dataLogin, setDataLogin] = useState<{
+  //   id: string;
+  //   nome: string;
+  // }>({
+  //   id: "",
+  //   nome: ""
+  // });
 
-  const saveLogin = useCallback((login: ILogin) => dispatch(addLogin(login)), [dispatch]);
+  // const loginDados = useSelector((state: RootState) => {
+  //   return [state.login.login.id, state.login.login.nome]
+  // });
+
+  // const loginDados2 = useSelector((state: RootState) => state);
+
+  const dispatch = useDispatch();
+
+  const loginDados = useSelector((state: RootState) => state);
+
   
   const validationSchema = Yup.object().shape({
     email: Yup
@@ -49,13 +78,39 @@ export function Login() {
 
   async function handleSubmitForm(values: FormTypes) {
     // alert(`Email: ${values.email}`);
-    saveLogin({
-      id: '1',
-      nome: 'Juca',
-      email: 'juca@email.com'
-    });
-    console.log(loginDados);
-    // history.push('/dashboard');
+    // saveLogin({
+    //   id: '1',
+    //   nome: 'Juca',
+    //   email: 'juca@email.com'
+    // });
+
+    const email = loginDados.usuario.email;
+    const senha = loginDados.usuario.senha;
+    
+    const validaEmail = email === values.email;
+    const validaSenha = senha === values.senha;
+    const validaLogin = validaEmail || validaSenha;
+    
+    if (!validaLogin) {
+      alert('Email ou senha estao invalidos');
+      return;
+    } else {
+      dispatch(setLogin({
+        id: `${loginDados.usuario.id}`,
+        nome: loginDados.usuario.nome,
+      }));
+      history.push('/dashboard');
+    }
+    // console.log(`Email => ${values.email}`);
+    // console.log(`Senha => ${values.senha}`);
+    // loginDados.map((item) => console.log(item));
+    // for (const item in loginDados2) {
+    //   console.log(item);
+    // }
+    // console.log(loginDados2);
+    // console.log(`ID => ${loginDados[0]}`);
+    // console.log(`Nome => ${loginDados[1]}`);
+    // console.log(dispatch(getLogin()));
   }
 
   return (

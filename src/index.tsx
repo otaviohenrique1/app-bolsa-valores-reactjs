@@ -5,22 +5,12 @@ import App from './App';
 // import { store } from './app/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
-// import { storeLogin } from './store';
-import { applyMiddleware, createStore, Store } from "redux";
-import { reducerLogin } from './store/reducer';
-import thunk from 'redux-thunk';
-
-const store: Store<
-  LoginState,
-  LoginAction
-> & { dispatch: DispatchTypeLogin } = createStore(reducerLogin, applyMiddleware(thunk));
+import { store } from "./features/app/store";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root')
 );
 

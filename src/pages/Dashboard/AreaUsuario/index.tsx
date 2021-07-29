@@ -9,6 +9,8 @@ import { Dropdown } from "../../../components/Dropdown";
 import { AiFillStar } from "react-icons/ai";
 import { useEffect, useState } from "react";
 // import { DropdownBotao, UsuarioDropdownAvatar, UsuarioDropdownNome, DropdownSeta } from "../../../components/Dropdown";
+import { RootState } from '../../../features/app/store';
+import { useSelector } from 'react-redux';
 
 const AreaUsuarioBox = styled.div`
   background-color: #FFFFFF;
@@ -54,12 +56,18 @@ export function AreaUsuario() {
     setData(favoritos);
   }, []);
 
+  const loginDados = useSelector((state: RootState) => state);
+
+  // console.log(loginDados.login.id);
+  // console.log(loginDados.login.nome);
+  
   return (
     <AreaUsuarioBox>
       <Dropdown
         avatarSrc={avatar}
         avatarAlt="Avatar usuario"
-        usuarioNome="João da Silva Almeida Magalhães"
+        usuarioNome={loginDados.login.nome}
+        // usuarioNome="João da Silva Almeida Magalhães"
       />
       <AreaListaFavoritos>
         <EmpresasFavoritasTitulo>

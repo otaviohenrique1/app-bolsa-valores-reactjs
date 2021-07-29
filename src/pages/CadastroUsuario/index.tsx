@@ -6,7 +6,9 @@ import { ErroMensagem } from '../../components/Mensagem';
 import { Botao, BotaoContainer } from '../../components/Botao';
 import { FormularioContainer } from '../../components/Formulario';
 import { Titulo } from '../../components/Titulo';
-import IndexedDb from '../../utils/IndexedDb';
+// import IndexedDb from '../../utils/IndexedDb';
+import { useDispatch } from 'react-redux';
+import { setUsuario } from '../../features/usuario/usuarioSlice';
 
 interface FormTypes {
   nome: string;
@@ -38,16 +40,26 @@ export function CadastroUsuario() {
       .required('O campo senha é obrigatorio'),
   });
 
+  const dispatch = useDispatch();
+
   async function handleSubmitForm(values: FormTypes) {
-    const indexedDb = new IndexedDb('api_app-bolsa-valores-reactjs');
-    await indexedDb.createObjectStore(['usuarios']);
-    await indexedDb.putValue('usuarios', {
+    // const indexedDb = new IndexedDb('api_app-bolsa-valores-reactjs');
+    // await indexedDb.createObjectStore(['usuarios']);
+    // await indexedDb.putValue('usuarios', {
+    //   nome: values.nome,
+    //   email: values.nome,
+    //   senha: values.senha
+    // });
+
+    dispatch(setUsuario({
+      id: `${Math.floor(Math.floor(Math.random() * 1000))}`,
       nome: values.nome,
-      email: values.nome,
+      email: values.email,
       senha: values.senha
-    });
+    }));
+
     alert(`Dados cadastrados`);
-    history.push('/home');
+    history.push('/');
   }
 
   return (
