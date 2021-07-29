@@ -119,32 +119,47 @@ const AreaGrafico = styled.div`
 //   param2
 // }
 
-interface DataExemploProps {
+interface DataGraficoProps {
   name: string;
   uv: number;
   pv: number;
   amt: number;
 }
 
+interface DataEmpresaProps {
+  favorito: boolean;
+  nome_empresa: string;
+  codigo_empresa: string;
+  porcentagem: number;
+  valor_acao: number;
+  valor_variacao_dinheiro: number
+}
+
+const dataEmpresaDadosIniciais = {
+  favorito: false,
+  nome_empresa: '',
+  codigo_empresa: '',
+  porcentagem: 0,
+  valor_acao: 0,
+  valor_variacao_dinheiro: 0
+}
+
 export function Grafico() {
-  const [dataGrafico, setDataGrafico] = useState<DataExemploProps[]>([]);
+  const [dataGrafico, setDataGrafico] = useState<DataGraficoProps[]>([]);
+  const [dataEmpresa, setDataEmpresa] = useState<DataEmpresaProps>(dataEmpresaDadosIniciais);
 
   useEffect(() => {
-    const dataExemplo = [
-      {name: '10:00', uv: 400, pv: 2400, amt: 2400},
-      {name: '10:30', uv: 300, pv: 2400, amt: 2400},
-      {name: '11:00', uv: 300, pv: 2400, amt: 2400},
-      {name: '12:00', uv: 200, pv: 2400, amt: 2400},
-      {name: '13:00', uv: 278, pv: 2400, amt: 2400},
-      {name: '14:00', uv: 189, pv: 2400, amt: 2400},
-      {name: '13:00', uv: 400, pv: 2400, amt: 2400},
-      {name: '15:00', uv: 300, pv: 2400, amt: 2400},
-      {name: '16:00', uv: 300, pv: 2400, amt: 2400},
-      {name: '17:00', uv: 200, pv: 2400, amt: 2400},
-      {name: '17:30', uv: 278, pv: 2400, amt: 2400},
-      {name: '18:00', uv: 1000, pv: 2400, amt: 2400},
-    ];
-    setDataGrafico(dataExemplo);
+    let dataFavoritos = favoritos[5];
+
+    setDataGrafico(dataFavoritos.data);
+    setDataEmpresa({
+      favorito: dataFavoritos.favorito,
+      nome_empresa: dataFavoritos.nome_empresa,
+      codigo_empresa: dataFavoritos.codigo_empresa,
+      porcentagem: dataFavoritos.porcentagem,
+      valor_acao: dataFavoritos.valor_acao,
+      valor_variacao_dinheiro: dataFavoritos.valor_variacao_dinheiro,
+    });
   }, []);
 
   return (
@@ -152,41 +167,68 @@ export function Grafico() {
       <AreaDados>
         <AreaDadosEmpresa>
           <BotaoFavoritoBox>
-            <BotaoFavorito />
+            <BotaoFavorito
+              favoritado={dataEmpresa.favorito}
+            />
           </BotaoFavoritoBox>
           <EmpresaDadosBox>
             <EmpresaDados
-              codigo_empresa={favoritos[4].codigo_empresa}
-              nome_empresa={favoritos[4].nome_empresa}
+              codigo_empresa={dataEmpresa.codigo_empresa}
+              nome_empresa={dataEmpresa.nome_empresa}
             />
           </EmpresaDadosBox>
         </AreaDadosEmpresa>
         <AreaDadosAcoes>
           <ValorAcaoEmpresa>
-            {/* <img src={graph_down} alt="graph_down" /> */}
-            <ImagemGraficoSeta porcentagem={favoritos[4].porcentagem}  />
+            <ImagemGraficoSeta porcentagem={dataEmpresa.porcentagem}  />
             {' '}
-            {`$${(favoritos[4].valor_acao).toString().replace('.', ',')}`}
+            {`$${(dataEmpresa.valor_acao).toString().replace('.', ',')}`}
           </ValorAcaoEmpresa><br />
           <div>
-            <ValorAcaoVaricacaoDinheiro valorVariacaoDinheiro={favoritos[4].valor_variacao_dinheiro} />
+            <ValorAcaoVaricacaoDinheiro valorVariacaoDinheiro={dataEmpresa.valor_variacao_dinheiro} />
             {' '}
-            <ValorAcaoPorcentagemBox porcentagem={favoritos[4].porcentagem}/>
+            <ValorAcaoPorcentagemBox porcentagem={dataEmpresa.porcentagem}/>
           </div>
         </AreaDadosAcoes>
       </AreaDados>
       <AreaGrafico>
         <LineChart width={600} height={300} data={dataGrafico} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-          <Line type="monotone" dataKey="uv" stroke="#8884d8" />
+          <Line type="monotone" dataKey="uv" stroke="#0047BB" />
           <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
           <XAxis dataKey="name" />
           <YAxis />
-          <Tooltip />
+          <Tooltip
+            itemStyle={styleTooltip}
+            labelStyle={styleTooltip}
+            contentStyle={styleTooltip}
+            wrapperStyle={styleTooltip}
+          />
         </LineChart>
       </AreaGrafico>
     </GraficoContainer>
   );
 }
+
+const styleTooltip: React.CSSProperties = {
+  color: 'white',
+  background: '#0047BB',
+};
+
+// const dataExemplo = [
+//   {name: '10:00', uv: 400, pv: 2400, amt: 2400},
+//   {name: '10:30', uv: 300, pv: 2400, amt: 2400},
+//   {name: '11:00', uv: 300, pv: 2400, amt: 2400},
+//   {name: '12:00', uv: 200, pv: 2400, amt: 2400},
+//   {name: '13:00', uv: 278, pv: 2400, amt: 2400},
+//   {name: '14:00', uv: 189, pv: 2400, amt: 2400},
+//   {name: '13:00', uv: 400, pv: 2400, amt: 2400},
+//   {name: '15:00', uv: 300, pv: 2400, amt: 2400},
+//   {name: '16:00', uv: 300, pv: 2400, amt: 2400},
+//   {name: '17:00', uv: 200, pv: 2400, amt: 2400},
+//   {name: '17:30', uv: 278, pv: 2400, amt: 2400},
+//   {name: '18:00', uv: 1000, pv: 2400, amt: 2400},
+// ];
+// setDataGrafico(dataExemplo);
 
 // export const ValorAcaoVaricacao2 = styled.span<{ acaoCor?: 'success' | 'danger' | ''; }>`
 //   font-weight: normal;

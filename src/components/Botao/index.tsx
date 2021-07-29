@@ -75,8 +75,9 @@ export function BotaoFavorito(props: BotaoFavoritoProps) {
     if (props.favoritado) {
       setFoiFavoritado(props.favoritado);
       setIsActive(foiFavoritado);
+    } else {
+      setFoiFavoritado(false);
     }
-    setFoiFavoritado(false);
   }, [foiFavoritado, props.favoritado])
 
   return (
