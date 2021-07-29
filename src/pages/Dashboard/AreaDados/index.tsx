@@ -6,8 +6,11 @@ import { TituloDashboard } from "../../../components/Titulo";
 import { Grafico, GraficoContainer } from "../../../components/Grafico";
 import { EmpresasRecentes } from "../EmpresasRecentes";
 import { favoritos } from "../../../utils/apis/api_favoritos";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { ContainerMensagemSemDados } from "../../../components/Mensagem";
+import { useDispatch, useSelector } from "react-redux";
+import { setFavorito, removeFavorito } from "../../../features/favorito/favoritoSlice";
+import { RootState } from "../../../app/store";
 
 const Container = styled.div`
   background-color: #C4C4C4;
@@ -42,7 +45,48 @@ const initialValues = {
 
 export function AreaDados() {
   const [data, setData] = useState<DataProps>();
+  const [favoritado, setFavoritado] = useState<boolean>(false);
+  const dispatch = useDispatch();
   
+  const favoritoDados = useSelector((state: RootState) => state);
+
+  async function handleSubmitFavorito(event: FormEvent) {
+    event.preventDefault();
+    if (data) {
+      const validaSeFavoritoJaExiste = favoritoDados.favorito.favoritos.find((item) => {
+        return data.codigo_empresa === item.codigo_empresa;
+      });
+
+      if (validaSeFavoritoJaExiste) {
+        dispatch(removeFavorito(data));
+        setFavoritado(true);
+        dispatch(setFavorito({
+          id: data.id,
+          favorito: favoritado,
+          src: data.src,
+          alt: data.alt,
+          nome_empresa: data.nome_empresa,
+          codigo_empresa: data.codigo_empresa,
+          porcentagem: data.porcentagem,
+        }));
+      } else {
+        setFavoritado(true);
+        dispatch(setFavorito({
+          id: data.id,
+          favorito: favoritado,
+          src: data.src,
+          alt: data.alt,
+          nome_empresa: data.nome_empresa,
+          codigo_empresa: data.codigo_empresa,
+          porcentagem: data.porcentagem,
+        }));
+      }
+    } else {
+      return;
+    }
+    // alert(favoritado);
+  }
+
   const validationSchema = Yup.object().shape({
     empresa_buscada: Yup
       .string()
@@ -81,7 +125,11 @@ export function AreaDados() {
         )}
       </Formik>
       {(data) ? (
-        <Grafico data={data} />
+        <Grafico
+          data={data}
+          favoritado={favoritado}
+          handleSubmitFavorito={handleSubmitFavorito}
+        />
       ) : (
         <GraficoContainer>
           <ContainerMensagemSemDados>

@@ -79,7 +79,9 @@ export function BotaoFavorito(props: BotaoFavoritoProps) {
   }, [foiFavoritado, props.favoritado])
 
   return (
-    <BotaoEstilizado>
+    <BotaoEstilizado
+      type="submit"
+    >
       <IconBotaoFavoritoBox
         onClick={() => setIsActive(!isActive)}
       >

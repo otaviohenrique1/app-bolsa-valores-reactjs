@@ -29,7 +29,6 @@ export function Login() {
 
   const loginDados = useSelector((state: RootState) => state);
 
-  
   const validationSchema = Yup.object().shape({
     email: Yup
       .string()

@@ -3,18 +3,10 @@ import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts'
 import { EmpresaDados } from "../Empresa";
 import { ImagemGraficoSeta, ValorAcaoEmpresa, ValorAcaoPorcentagemBox, ValorAcaoVaricacaoDinheiro } from "../ValorAcao";
 import { BotaoFavorito } from "../Botao";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useEffect } from "react";
-// import { favoritos } from "../../utils/apis/api_favoritos";
-// import { BotaoFavorito } from "../BotaoFavorito";
-// import { ValorAcaoPorcentagem, ValorAcaoVaricacao } from "../ValorAcao";
-// import star_fill from "../../assets/images/star_fill.svg";
-// import graph_down from "../../assets/images/graph-down.svg";
-// import graph_up from "../../assets/images/graph-up.svg";
 
 export const GraficoContainer = styled.div`
-  /* background: blue; */
-
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -43,31 +35,9 @@ const AreaDados = styled.div`
   margin: 10px 0px;
 `;
 
-const AreaDadosEmpresa = styled.div`
-  /* span {
-    position: absolute;
-    left: 2.67%;
-    right: 94.12%;
-    top: 10%;
-    bottom: 83.68%;
-  }
+const AreaDadosEmpresa = styled.div``;
 
-  div {
-    position: absolute;
-    left: 7.09%;
-    right: 83.42%;
-    top: 7.89%;
-    bottom: 81.32%;
-    font-family: Graphik;
-    font-style: normal;
-    font-size: 16px;
-    line-height: 20px;
-    letter-spacing: -0.005em;
-    color: #14171A;
-  } */
-`;
-
-const BotaoFavoritoBox = styled.div`
+const BotaoFavoritoBox = styled.form`
   position: absolute;
   left: 2.67%;
   right: 94.12%;
@@ -98,11 +68,6 @@ const AreaDadosAcoes = styled.div`
   text-align: end;
 `;
 
-// const ValorAcaoVaricacao = styled.span`
-//   font-weight: normal;
-//   color: red;
-// `;
-
 const AreaGrafico = styled.div`
   position: static;
   width: 748px;
@@ -115,10 +80,6 @@ const AreaGrafico = styled.div`
   margin: 10px 0px;
 `;
 
-// interface DataGraficoProps {
-//   param2
-// }
-
 interface DataGraficoProps {
   name: string;
   uv: number;
@@ -127,7 +88,7 @@ interface DataGraficoProps {
 }
 
 interface DataEmpresaProps {
-  favorito: boolean;
+  // favorito: boolean;
   nome_empresa: string;
   codigo_empresa: string;
   porcentagem: number;
@@ -136,7 +97,7 @@ interface DataEmpresaProps {
 }
 
 const dataEmpresaDadosIniciais = {
-  favorito: false,
+  // favorito: false,
   nome_empresa: '',
   codigo_empresa: '',
   porcentagem: 0,
@@ -146,19 +107,21 @@ const dataEmpresaDadosIniciais = {
 
 interface GraficoProps {
   data: any;
+  favoritado?: any;
+  handleSubmitFavorito?: (event: FormEvent) => void;
 }
 
 export function Grafico(props: GraficoProps) {
   const [dataGrafico, setDataGrafico] = useState<DataGraficoProps[]>([]);
   const [dataEmpresa, setDataEmpresa] = useState<DataEmpresaProps>(dataEmpresaDadosIniciais);
-
+  
   useEffect(() => {
     let dataFavoritos = props.data;
     // let dataFavoritos = favoritos[5];
 
     setDataGrafico(dataFavoritos.data);
     setDataEmpresa({
-      favorito: dataFavoritos.favorito,
+      // favorito: dataFavoritos.favorito,
       nome_empresa: dataFavoritos.nome_empresa,
       codigo_empresa: dataFavoritos.codigo_empresa,
       porcentagem: dataFavoritos.porcentagem,
@@ -171,9 +134,12 @@ export function Grafico(props: GraficoProps) {
     <GraficoContainer>
       <AreaDados>
         <AreaDadosEmpresa>
-          <BotaoFavoritoBox>
+          <BotaoFavoritoBox
+            onSubmit={props.handleSubmitFavorito}
+          >
             <BotaoFavorito
-              favoritado={dataEmpresa.favorito}
+              // favoritado={dataEmpresa.favorito}
+              favoritado={(props.favoritado) ? true : false}
             />
           </BotaoFavoritoBox>
           <EmpresaDadosBox>
@@ -234,35 +200,3 @@ const styleTooltip: React.CSSProperties = {
 //   {name: '18:00', uv: 1000, pv: 2400, amt: 2400},
 // ];
 // setDataGrafico(dataExemplo);
-
-// export const ValorAcaoVaricacao2 = styled.span<{ acaoCor?: 'success' | 'danger' | ''; }>`
-//   font-weight: normal;
-//   color: ${(props) =>
-//     (props.acaoCor === 'success' && '#79C300') ||
-//     (props.acaoCor === 'danger' && '#D64B45')
-//   };
-
-//   img {
-//     padding-left: 5px;
-//     text-align: end;
-//   }
-// `;
-
-// function ValorAcaoPorcentagem2(props: { porcentagem: number }) {
-//   let valor = Math.sign(props.porcentagem);
-
-//   return (
-//     <ValorAcaoVaricacao2
-//       acaoCor={((valor === 1) && 'success') || ((valor === -1) && 'danger') || ''}
-//     >
-//       {(valor === 1) && `+${props.porcentagem}%`}
-//       {(valor === -1) && `${props.porcentagem}%`}
-//       {/* {`${props.porcentagem}%`} */}
-//       <img
-//         src={(valor === 1) ? graph_up : graph_down}
-//         // src={(valor === 1) ? graph_up : graph_down}
-//         alt={(valor === 1) ? "graph_up" : "graph_down"}
-//       />
-//     </ValorAcaoVaricacao2>
-//   );
-// }
