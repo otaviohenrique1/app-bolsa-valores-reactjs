@@ -100,7 +100,8 @@ const CarouselEstilizado = styled(Carousel)`
     margin-bottom: 17px;
   }
 
-  button:first-child {
+  /* button:first-child { */
+  button.rec.rec-arrow.rec.rec-arrow-left {
     position: absolute;
     top: -40px;
     right: 25px;
@@ -115,7 +116,8 @@ const CarouselEstilizado = styled(Carousel)`
     justify-content: center;
   }
   
-  button:last-child {
+  /* button:last-child { */
+  button.rec.rec-arrow.rec.rec-arrow-right {
     position: absolute;
     top: -40px;
     right: -10px;
@@ -174,7 +176,7 @@ export function EmpresasRecentes() {
               >
                 <Item
                   favoritado={item.favorito}
-                  exibeBotaoFavorito={true}
+                  exibeBotaoFavorito
                   logo_empresa={{
                     src: item.src,
                     alt: item.alt
