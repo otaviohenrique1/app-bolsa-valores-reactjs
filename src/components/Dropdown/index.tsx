@@ -1,6 +1,5 @@
 import { useState, ReactNode } from "react";
 import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
-// import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { useDispatch } from 'react-redux';
@@ -24,7 +23,6 @@ export const DropdownBotao = styled.button`
   border-right: 1px solid rgba(0, 71, 187, 1.0);
   border-bottom: 1px solid rgba(0, 71, 187, 1.0);
 
-  /* &:hover, &:focus { */
   &:active {
     border-top: 1px solid rgba(0, 71, 187, 1.0);
     border-left: 1px solid rgba(0, 71, 187, 1.0);
@@ -77,11 +75,7 @@ export function DropdownSeta(props: DropdownSetaProps) {
   );
 }
 
-export const DropdownArea = styled.div`
-  /* background-color: transparent; */
-  /* background-color: #FFFFFF;
-  width: 100%; */
-`;
+export const DropdownArea = styled.div``;
 
 export const DropdownConteudo = styled.div`
   background-color: transparent;
@@ -155,49 +149,14 @@ export function Dropdown(props: DropdownProps) {
               Perfil
             </DropdownConteudoBotao>
             <hr />
-            {/* <Link to={'/'}> */}
-              <DropdownConteudoBotao
-                onClick={() => handleClick()}
-              >
-                Sair
-              </DropdownConteudoBotao>
-            {/* </Link> */}
+            <DropdownConteudoBotao
+              onClick={() => handleClick()}
+            >
+              Sair
+            </DropdownConteudoBotao>
           </DropdownConteudoLista>
         </DropdownConteudo>
       )}
     </DropdownArea>
   );
 }
-
-/*
-export const DropdownBotaoEstilizado = styled.span`
-  width: 16px;
-  height: 16px;
-`;
-
-export function DropdownSeta(props: DropdownSetaProps) {
-  const [open, setOpen] = useState<boolean>(false);
-  
-  return (
-    <DropdownBotaoEstilizado onClick={() => setOpen(!open)}>
-      {(open) ? (
-        <TiArrowSortedUp width={12} height={6} color="#F06400" />
-      ) : (
-        <TiArrowSortedDown width={12} height={6} color="#F06400" />
-      )}
-    </DropdownBotaoEstilizado>
-  );
-}
-*/
-
-/*
-interface DropdownBotaoAreaStyleProps {
-  ativo?: boolean;
-}
-
-const DropdownBotaoArea = styled.div<DropdownBotaoAreaStyleProps>`
-  background: ${(props) => ((props.ativo) ? '#FFFFFF' : 'transparent')};
-  margin: ${(props) => ((props.ativo) ? '0px' : '32px 20px')};
-  padding: ${(props) => ((props.ativo) ? '32px 20px' : '0px')};
-`;
-*/

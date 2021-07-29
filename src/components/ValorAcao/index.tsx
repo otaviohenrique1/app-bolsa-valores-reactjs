@@ -7,10 +7,6 @@ export const ValorAcaoEmpresa = styled.span`
 `;
 
 export interface ValorAcaoVariacaoStyleProps {
-  /*
-  success?: boolean;
-  danger?: boolean;
-  */
   acaoCor?: 'success' | 'danger' | '';
 }
 
@@ -20,25 +16,11 @@ export const ValorAcaoVariacao = styled.span<ValorAcaoVariacaoStyleProps>`
     (props.acaoCor === 'success' && '#79C300') ||
     (props.acaoCor === 'danger' && '#D64B45')
   };
-
-  /* img {
-    padding-left: 5px;
-    text-align: end;
-  } */
 `;
-
-/*
-  color: ${(props) =>
-    (props.success && '#79C300') ||
-    (props.danger && '#D64B45')
-  };
-*/
 
 const ImgGraficoSeta = styled.img`
   padding-left: 5px;
   text-align: end;
-  /* width: 15px;
-  height: 8px; */
 `;
 
 export function ImagemGraficoSeta(props: ValorAcaoPorcentagemProps) {
@@ -74,7 +56,6 @@ export function ValorAcaoPorcentagem(props: ValorAcaoPorcentagemProps) {
     >
       {((verificaSeValorForPositivo) && `+${props.porcentagem}%`) ||
       ((verificaSeValorForNegativo) && `${props.porcentagem}%`)}
-      {/* {`${props.porcentagem}%`} */}
     </ValorAcaoVariacao>
   );
 }
@@ -117,34 +98,3 @@ export function ValorAcaoVaricacaoDinheiro(props: ValorAcaoVariacaoDinheiroProps
     </ValorAcaoVariacao>
   );
 }
-
-/*
-export function ValorAcaoPorcentagem(props: ValorAcaoPorcentagemProps) {
-  const [valorAcaoImagem, setValorAcaoImagem] = useState<boolean>(false);
-
-  let valor = Math.sign(props.porcentagem);
-  
-  if (valor === 1) {
-    setValorAcaoImagem(true);
-  } 
-  if (valor === -1) {
-    setValorAcaoImagem(false);
-  }
-
-  return (
-    <ValorAcaoVaricacao acaoCor={(valorAcaoImagem) ? 'success' : 'danger'}>
-      {(valor === 1) && `+${props.porcentagem}%`}
-      {(valor === -1) && `-${props.porcentagem}%`}
-      {`${props.porcentagem}%`}
-      <img
-        src={(valorAcaoImagem) ? graph_up : graph_down}
-        alt={(valorAcaoImagem) ? "graph_up" : "graph_down"}
-        // style={{
-        //   paddingLeft: '5px',
-        //   textAlign: 'end'
-        // }}
-      />
-    </ValorAcaoVaricacao>
-  );
-}
-*/

@@ -5,15 +5,15 @@ import { ImagemGraficoSeta, ValorAcaoEmpresa, ValorAcaoPorcentagemBox, ValorAcao
 import { BotaoFavorito } from "../Botao";
 import { useState } from "react";
 import { useEffect } from "react";
-import { favoritos } from "../../utils/apis/api_favoritos";
+// import { favoritos } from "../../utils/apis/api_favoritos";
 // import { BotaoFavorito } from "../BotaoFavorito";
 // import { ValorAcaoPorcentagem, ValorAcaoVaricacao } from "../ValorAcao";
 // import star_fill from "../../assets/images/star_fill.svg";
 // import graph_down from "../../assets/images/graph-down.svg";
 // import graph_up from "../../assets/images/graph-up.svg";
 
-const GraficoContainer = styled.div`
-  background: blue;
+export const GraficoContainer = styled.div`
+  /* background: blue; */
 
   display: flex;
   flex-direction: column;
@@ -144,12 +144,17 @@ const dataEmpresaDadosIniciais = {
   valor_variacao_dinheiro: 0
 }
 
-export function Grafico() {
+interface GraficoProps {
+  data: any;
+}
+
+export function Grafico(props: GraficoProps) {
   const [dataGrafico, setDataGrafico] = useState<DataGraficoProps[]>([]);
   const [dataEmpresa, setDataEmpresa] = useState<DataEmpresaProps>(dataEmpresaDadosIniciais);
 
   useEffect(() => {
-    let dataFavoritos = favoritos[5];
+    let dataFavoritos = props.data;
+    // let dataFavoritos = favoritos[5];
 
     setDataGrafico(dataFavoritos.data);
     setDataEmpresa({
@@ -160,7 +165,7 @@ export function Grafico() {
       valor_acao: dataFavoritos.valor_acao,
       valor_variacao_dinheiro: dataFavoritos.valor_variacao_dinheiro,
     });
-  }, []);
+  }, [props.data]);
 
   return (
     <GraficoContainer>

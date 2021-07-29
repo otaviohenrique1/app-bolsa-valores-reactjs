@@ -1,5 +1,4 @@
 import { ButtonHTMLAttributes } from "react";
-// import { InputHTMLAttributes } from "react";
 import styled from "styled-components";
 import { Field } from 'formik';
 import search from "../../assets/images/search.svg";
@@ -65,7 +64,7 @@ export function CampoBusca(props: CampoBuscaProps) {
           name={props.name}
         />
         <BotaoBusca
-          type="button"
+          type="submit"
           {...props.buttonProps}
         >
           <img src={search} alt="search" />
@@ -95,7 +94,6 @@ interface CampoProps {
   htmlFor: string;
   labelCampo: string
   erro: any;
-  // props?: InputHTMLAttributes<HTMLInputElement>;
   type: string;
   name: string;
   id: string;
@@ -107,7 +105,6 @@ export function Campo(props: CampoProps) {
     <CampoContainer>
       <LabelCampo htmlFor={props.htmlFor}>{props.labelCampo}</LabelCampo>
       <CampoFormulario
-      //  {...props.props}
         type={props.type}
         name={props.name}
         id={props.id}

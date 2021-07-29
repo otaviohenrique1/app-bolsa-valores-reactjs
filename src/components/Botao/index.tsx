@@ -22,9 +22,7 @@ export const Botao = styled.button<BotaoStyleProps>`
     ('#595959')
   };
   color: white;
-  /* border: 2px solid black; */
   font-size: 1em;
-  /* margin: 1em; */
   padding: 0.25em 1em;
   border-radius: 3px;
   width: 100px;
@@ -81,9 +79,7 @@ export function BotaoFavorito(props: BotaoFavoritoProps) {
   }, [foiFavoritado, props.favoritado])
 
   return (
-    <BotaoEstilizado 
-      // {...props.buttonProps}
-    >
+    <BotaoEstilizado>
       <IconBotaoFavoritoBox
         onClick={() => setIsActive(!isActive)}
       >
@@ -102,4 +98,3 @@ export function BotaoFavorito(props: BotaoFavoritoProps) {
     </BotaoEstilizado>
   );
 }
-// 

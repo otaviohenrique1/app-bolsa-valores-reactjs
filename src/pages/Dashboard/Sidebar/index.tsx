@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-// import logo from "../../../assets/images/monetus_logo.svg";
 import Home from "../../../assets/images/icon-home.svg";
 import { HTMLAttributes } from 'react';
 import { RiExchangeFill } from "react-icons/ri";
@@ -8,14 +7,6 @@ const Aside = styled.nav`
   background-color: #F5F8FA;
   width: 100%;
 `;
-
-// const Logo = styled.img`
-//   position: absolute;
-//   width: 46px;
-//   height: 46px;
-//   left: 25px;
-//   top: 20px;
-// `;
 
 const LogoEstilizado = styled(RiExchangeFill)`
   position: absolute;
@@ -57,7 +48,6 @@ function BotaoHome(props: HTMLAttributes<HTMLButtonElement>) {
 export function Sidebar() {
   return (
     <Aside>
-      {/* <Logo src={logo} alt="Monetus Logo" /> */}
       <LogoEstilizado color={"#0047BB"} />
       <BotaoHome />
     </Aside>

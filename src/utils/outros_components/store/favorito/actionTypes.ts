@@ -1,2 +1,0 @@
-export const ADD_FAVORITO = "ADD_FAVORITO";
-export const REMOVE_FAVORITO = "REMOVE_FAVORITO";

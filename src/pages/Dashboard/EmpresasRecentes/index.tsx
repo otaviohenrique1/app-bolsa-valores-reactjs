@@ -4,6 +4,7 @@ import { Item } from "../../../components/Item";
 import { useEffect, useState } from "react";
 import { favoritos } from "../../../utils/apis/api_favoritos";
 import Carousel from "react-elastic-carousel";
+import { ContainerMensagemSemDados } from "../../../components/Mensagem";
 
 const EmpresasRecentesContainer = styled.div`
 position: absolute;
@@ -100,7 +101,6 @@ const CarouselEstilizado = styled(Carousel)`
     margin-bottom: 17px;
   }
 
-  /* button:first-child { */
   button.rec.rec-arrow.rec.rec-arrow-left {
     position: absolute;
     top: -40px;
@@ -116,7 +116,6 @@ const CarouselEstilizado = styled(Carousel)`
     justify-content: center;
   }
   
-  /* button:last-child { */
   button.rec.rec-arrow.rec.rec-arrow-right {
     position: absolute;
     top: -40px;
@@ -142,6 +141,10 @@ const CarouselEstilizado = styled(Carousel)`
   }
 `;
 
+const ContainerMensagemSemDadosEstilizado = styled(ContainerMensagemSemDados)`
+  height: 73px;
+  align-items: flex-end;
+`;
 interface DataProps {
   id: number;
   favorito: boolean;
@@ -170,7 +173,8 @@ export function EmpresasRecentes() {
           itemsToShow={2}
           isRTL={false}
         >
-          {data.map((item, index) => (
+          {(data) ? (
+            data.map((item, index) => (
               <ItemEstilizado
                 key={index}
               >
@@ -190,66 +194,14 @@ export function EmpresasRecentes() {
                   }}
                 />
               </ItemEstilizado>
-          ))}
+            ))
+          ) : (
+            <ContainerMensagemSemDadosEstilizado>
+              <h1>Sem dados</h1>
+            </ContainerMensagemSemDadosEstilizado>
+          )}
         </CarouselEstilizado>
       </CardEmpresaContainer>
     </EmpresasRecentesContainer>
   );
 }
-
-/*
-export function EmpresasRecentes() {
-  const [data, setData] = useState<DataProps[]>([]);
-  
-  useEffect(() => {
-    setData(favoritos);
-  }, []);
-
-  return (
-    <EmpresasRecentesContainer>
-      <TituloContainer>
-        <img src={stats_graph} alt="stats_graph" />
-        <p>Empresas recentes</p>
-        <div>
-          <BotaoSeta icon={<MdKeyboardArrowLeft size={30} />} />
-          <BotaoSeta icon={<MdKeyboardArrowRight size={30} />} />
-        </div>
-      </TituloContainer>
-      <CardEmpresaContainer>
-        <ItemEstilizado>
-          <Item
-            exibeBotaoFavorito={true}
-            logo_empresa={{
-              src: favoritos[3].src,
-              alt: favoritos[3].alt
-            }}
-            empresa_dados={{
-              nome_empresa: favoritos[3].nome_empresa,
-              codigo_empresa: favoritos[3].codigo_empresa
-            }}
-            valor_porcentagem={{
-              porcentagem: favoritos[3].porcentagem
-            }}
-          />
-        </ItemEstilizado>
-        <ItemEstilizado>
-          <Item
-            exibeBotaoFavorito={true}
-            logo_empresa={{
-              src: favoritos[6].src,
-              alt: favoritos[6].alt
-            }}
-            empresa_dados={{
-              nome_empresa: favoritos[6].nome_empresa,
-              codigo_empresa: favoritos[6].codigo_empresa
-            }}
-            valor_porcentagem={{
-              porcentagem: favoritos[6].porcentagem
-            }}
-          />
-        </ItemEstilizado>
-      </CardEmpresaContainer>
-    </EmpresasRecentesContainer>
-  );
-}
-*/

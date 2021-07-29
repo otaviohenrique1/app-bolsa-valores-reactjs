@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import { BotaoRemover } from "../Botao";
 import { BotaoFavorito } from "../Botao";
-// import { BotaoFavorito } from "../BotaoFavorito";
-// import { BotaoRemover } from "../BotaoRemover";
 import { CardEmpresa, EmpresaDados, EmpresaDadosProps, LogoEmpresa, LogoEmpresaProps } from "../Empresa";
 import { ImagemGraficoSeta, ValorAcaoPorcentagem, ValorAcaoPorcentagemProps } from "../ValorAcao";
 
@@ -87,7 +85,6 @@ export function ItemFavoritado(props: ItemProps) {
           porcentagem: props.valor_porcentagem.porcentagem
         }}
       />
-      {/* <IoMdTrash size={24} /> */}
       <BotaoRemover
         onClick={() => {
           alert(`Remover favorito ?
