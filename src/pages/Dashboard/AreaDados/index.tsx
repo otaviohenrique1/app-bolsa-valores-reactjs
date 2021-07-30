@@ -10,6 +10,7 @@ import { FormEvent, useState } from "react";
 import { ContainerMensagemSemDados } from "../../../components/Mensagem";
 import { useDispatch, useSelector } from "react-redux";
 import { setFavorito, removeFavorito } from "../../../features/favorito/favoritoSlice";
+import { removeEmpresaRecente, setEmpresaRecente } from "../../../features/empresa_recente/empresaRecenteSlice";
 import { RootState } from "../../../app/store";
 
 const Container = styled.div`
@@ -47,39 +48,32 @@ export function AreaDados() {
   const [data, setData] = useState<DataProps>();
   const [favoritado, setFavoritado] = useState<boolean>(false);
   const dispatch = useDispatch();
-  
-  const favoritoDados = useSelector((state: RootState) => state);
+  const selector = useSelector((state: RootState) => state);
 
-  async function handleSubmitFavorito(event: FormEvent) {
+  async function handleSubmitFormFavoritaEmpresa(event: FormEvent) {
     event.preventDefault();
     if (data) {
-      const validaSeFavoritoJaExiste = favoritoDados.favorito.favoritos.find((item) => {
+      const validaSeFavoritoJaExiste = selector.favorito.favoritos.find((item) => {
         return data.codigo_empresa === item.codigo_empresa;
       });
+
+      const novaEmpresaFavoritada = {
+        id: data.id,
+        favorito: favoritado,
+        src: data.src,
+        alt: data.alt,
+        nome_empresa: data.nome_empresa,
+        codigo_empresa: data.codigo_empresa,
+        porcentagem: data.porcentagem,
+      };
 
       if (validaSeFavoritoJaExiste) {
         dispatch(removeFavorito(data));
         setFavoritado(true);
-        dispatch(setFavorito({
-          id: data.id,
-          favorito: favoritado,
-          src: data.src,
-          alt: data.alt,
-          nome_empresa: data.nome_empresa,
-          codigo_empresa: data.codigo_empresa,
-          porcentagem: data.porcentagem,
-        }));
+        dispatch(setFavorito(novaEmpresaFavoritada));
       } else {
         setFavoritado(true);
-        dispatch(setFavorito({
-          id: data.id,
-          favorito: favoritado,
-          src: data.src,
-          alt: data.alt,
-          nome_empresa: data.nome_empresa,
-          codigo_empresa: data.codigo_empresa,
-          porcentagem: data.porcentagem,
-        }));
+        dispatch(setFavorito(novaEmpresaFavoritada));
       }
     } else {
       return;
@@ -93,13 +87,42 @@ export function AreaDados() {
       .required('O campo é obrigatorio'),
   });
 
-  async function handleSubmitForm(values: FormTypes) {
-    let empresaBuscada = favoritos.find((item) => {
+  async function handleSubmitFormBuscaEmpresa(values: FormTypes) {
+    let seEmpresaBuscadaExiste = favoritos.find((item) => {
       return item.codigo_empresa === values.empresa_buscada;
     });
     
-    if (empresaBuscada) {
-      setData(empresaBuscada);
+    if (seEmpresaBuscadaExiste) {
+      setData(seEmpresaBuscadaExiste);
+
+      if (data) {
+        const validaSeEmpresaEstaNalista = selector.empresaRecente.empresas_recentes.find((item) => {
+          return data.codigo_empresa === item.codigo_empresa;
+        });
+
+        const buscaSeItemFoiFavoritado = selector.favorito.favoritos.find((item) => {
+          return data.codigo_empresa === item.codigo_empresa;
+        });
+        
+        const novaEmpresaRecente = {
+          id: data.id,
+          favorito: buscaSeItemFoiFavoritado?.favorito || false,
+          src: data.src,
+          alt: data.alt,
+          nome_empresa: data.nome_empresa,
+          codigo_empresa: data.codigo_empresa,
+          porcentagem: data.porcentagem,
+        };
+
+        if (validaSeEmpresaEstaNalista) {
+          dispatch(removeEmpresaRecente(novaEmpresaRecente));
+          setFavoritado(true);
+          dispatch(setEmpresaRecente(novaEmpresaRecente));
+        } else {
+          setFavoritado(true);
+          dispatch(setEmpresaRecente(novaEmpresaRecente));
+        }
+      }
     } else {
       alert('Item não encontrado');
     }
@@ -113,7 +136,7 @@ export function AreaDados() {
       <Formik
         validationSchema={validationSchema}
         initialValues={initialValues}
-        onSubmit={handleSubmitForm}
+        onSubmit={handleSubmitFormBuscaEmpresa}
       >
         {({errors, touched}) => (
           <Form>
@@ -128,7 +151,7 @@ export function AreaDados() {
         <Grafico
           data={data}
           favoritado={favoritado}
-          handleSubmitFavorito={handleSubmitFavorito}
+          handleSubmitFavorito={handleSubmitFormFavoritaEmpresa}
         />
       ) : (
         <GraficoContainer>

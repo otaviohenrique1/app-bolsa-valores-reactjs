@@ -2,9 +2,11 @@ import styled from "styled-components";
 import stats_graph from "../../../assets/images/stats_graph.svg";
 import { Item } from "../../../components/Item";
 import { useEffect, useState } from "react";
-import { favoritos } from "../../../utils/apis/api_favoritos";
+// import { favoritos } from "../../../utils/apis/api_favoritos";
 import Carousel from "react-elastic-carousel";
 import { ContainerMensagemSemDados } from "../../../components/Mensagem";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../app/store";
 
 const EmpresasRecentesContainer = styled.div`
 position: absolute;
@@ -158,9 +160,12 @@ interface DataProps {
 export function EmpresasRecentes() {
   const [data, setData] = useState<DataProps[]>([]);
 
+  const selector = useSelector((state: RootState) => state);
+
   useEffect(() => {
-    setData(favoritos);
-  }, []);
+    setData(selector.empresaRecente.empresas_recentes);
+    // setData(favoritos);
+  }, [selector.empresaRecente.empresas_recentes]);
 
   return (
     <EmpresasRecentesContainer>
@@ -173,7 +178,11 @@ export function EmpresasRecentes() {
           itemsToShow={2}
           isRTL={false}
         >
-          {(data) ? (
+          {(!data || data.length === 0) ? (
+            <ContainerMensagemSemDadosEstilizado>
+            <h1>Sem dados</h1>
+          </ContainerMensagemSemDadosEstilizado>
+          ) : (
             data.map((item, index) => (
               <ItemEstilizado
                 key={index}
@@ -195,10 +204,6 @@ export function EmpresasRecentes() {
                 />
               </ItemEstilizado>
             ))
-          ) : (
-            <ContainerMensagemSemDadosEstilizado>
-              <h1>Sem dados</h1>
-            </ContainerMensagemSemDadosEstilizado>
           )}
         </CarouselEstilizado>
       </CardEmpresaContainer>

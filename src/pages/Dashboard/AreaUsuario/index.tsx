@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import avatar from "../../../assets/images/avatar.png";
 import { ItemFavoritado } from "../../../components/Item";
-import { favoritos } from "../../../utils/apis/api_favoritos";
+// import { favoritos } from "../../../utils/apis/api_favoritos";
 import { Dropdown } from "../../../components/Dropdown";
 import { AiFillStar } from "react-icons/ai";
 import { useEffect, useState } from "react";
@@ -52,8 +52,9 @@ export function AreaUsuario() {
   const selector = useSelector((state: RootState) => state);
   
   useEffect(() => {
-    setData(favoritos);
-  }, []);
+    setData(selector.favorito.favoritos);
+    // setData(favoritos);
+  }, [selector.favorito.favoritos]);
   
   return (
     <AreaUsuarioBox>
@@ -71,7 +72,11 @@ export function AreaUsuario() {
           <span>Empresas favoritas</span>
         </EmpresasFavoritasTitulo>
         {
-          (data) ? (
+          (!data || data.length === 0) ? (
+            <ContainerMensagemSemDados>
+              <h1>Sem dados</h1>
+            </ContainerMensagemSemDados>
+          ) : (
             data.map((item, index) => {
               return (
                 <ItemFavoritado
@@ -93,10 +98,6 @@ export function AreaUsuario() {
                 />
               );
             })
-          ) : (
-            <ContainerMensagemSemDados>
-              <h1>Sem dados</h1>
-            </ContainerMensagemSemDados>
           )
         }
       </AreaListaFavoritos>
