@@ -46,7 +46,10 @@ export function BotaoRemover(props: HTMLAttributes<HTMLButtonElement>) {
   const [isActive, setIsActive] = useState(false);
 
   return (
-    <BotaoEstilizado {...props}>
+    <BotaoEstilizado
+      type="submit"
+      {...props}
+    >
       <IoMdTrash
         size={24}
         onClick={() => setIsActive(!isActive)}

@@ -49,18 +49,18 @@ interface DataProps {
 export function AreaUsuario() {
   const [data, setData] = useState<DataProps[]>([]);
 
+  const selector = useSelector((state: RootState) => state);
+  
   useEffect(() => {
     setData(favoritos);
   }, []);
-
-  const loginDados = useSelector((state: RootState) => state);
   
   return (
     <AreaUsuarioBox>
       <Dropdown
         avatarSrc={avatar}
         avatarAlt="Avatar usuario"
-        usuarioNome={loginDados.login.nome || 'João da Silva Almeida Magalhães'}
+        usuarioNome={selector.login.nome || 'João da Silva Almeida Magalhães'}
       />
       <AreaListaFavoritos>
         <EmpresasFavoritasTitulo>

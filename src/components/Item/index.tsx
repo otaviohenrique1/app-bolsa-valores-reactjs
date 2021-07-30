@@ -1,15 +1,18 @@
+import { FormEvent } from "react";
 import styled from "styled-components";
 import { BotaoRemover } from "../Botao";
 import { BotaoFavorito } from "../Botao";
 import { CardEmpresa, EmpresaDados, EmpresaDadosProps, LogoEmpresa, LogoEmpresaProps } from "../Empresa";
 import { ImagemGraficoSeta, ValorAcaoPorcentagem, ValorAcaoPorcentagemProps } from "../ValorAcao";
+import { useDispatch, useSelector } from "react-redux";
+import { removeFavorito } from "../../features/favorito/favoritoSlice";
+import { RootState } from "../../app/store";
 
 interface ItemProps {
   logo_empresa: LogoEmpresaProps;
   empresa_dados: EmpresaDadosProps;
   valor_porcentagem: ValorAcaoPorcentagemProps;
   favoritado?: boolean;
-  idFavorito?: number;
   exibeBotaoFavorito?: boolean;
 }
 
@@ -68,7 +71,28 @@ const ItemEstilizado = styled(Item)`
   padding-right: 8px;
 `;
 
-export function ItemFavoritado(props: ItemProps) {
+interface ItemFavoritadoProps extends ItemProps {
+  idFavorito: number;
+}
+
+export function ItemFavoritado(props: ItemFavoritadoProps) {
+  const dispatch = useDispatch();
+
+  const selector = useSelector((state: RootState) => state);
+
+  async function handleSubmitFavorito(event: FormEvent) {
+    event.preventDefault();
+    const data = selector.favorito.favoritos.find((item) => {
+      return props.idFavorito === item.id;
+    });
+    
+    if (data) {
+      dispatch(removeFavorito(data));
+    } else {
+      return;
+    }
+  }
+
   return (
     <ItemFavoritadoBox>
       <ItemEstilizado
@@ -85,12 +109,16 @@ export function ItemFavoritado(props: ItemProps) {
           porcentagem: props.valor_porcentagem.porcentagem
         }}
       />
-      <BotaoRemover
-        onClick={() => {
-          alert(`Remover favorito ?
-          id => ${props.idFavorito}`);
-        }}
-      />
+      <form
+        onSubmit={handleSubmitFavorito}
+      >
+        <BotaoRemover
+          // onClick={() => {
+          //   alert(`Remover favorito ?
+          //   id => ${props.idFavorito}`);
+          // }}
+        />
+      </form>
     </ItemFavoritadoBox>
   );
 }
