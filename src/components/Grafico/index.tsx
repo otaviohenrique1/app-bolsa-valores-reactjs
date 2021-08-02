@@ -5,6 +5,7 @@ import { ImagemGraficoSeta, ValorAcaoEmpresa, ValorAcaoPorcentagemBox, ValorAcao
 import { BotaoFavorito } from "../Botao";
 import { FormEvent, useState } from "react";
 import { useEffect } from "react";
+import { Api } from "../../services/api";
 
 export const GraficoContainer = styled.div`
   display: flex;
@@ -115,6 +116,13 @@ export function Grafico(props: GraficoProps) {
   const [dataGrafico, setDataGrafico] = useState<DataGraficoProps[]>([]);
   const [dataEmpresa, setDataEmpresa] = useState<DataEmpresaProps>(dataEmpresaDadosIniciais);
   
+  useEffect(() => {
+    const dadosEmpresa = Api({
+      symbol: 'AAPL',
+      type: 'company'
+    });
+  }, []);
+
   useEffect(() => {
     let dataFavoritos = props.data;
     // let dataFavoritos = favoritos[5];

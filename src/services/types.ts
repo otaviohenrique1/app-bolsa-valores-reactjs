@@ -1,4 +1,4 @@
-import api from "./api";
+import { api } from "./api";
 
 interface ExemploApiProps {
   symbol: string;
@@ -34,18 +34,17 @@ export function exemploApi({ symbol, type, conteudo, opcoes }: ExemploApiProps) 
     Exemplo => https://cloud.iexapis.com/stable/stock/AAPL/quote/latestPrice?token=YOUR_TOKEN_HERE
 */
 
-export interface DataHistoricalPrice {
+export interface DataHistoricalPrice2 {
   symbol: string;
   close: number;
   date: Date;
 }
 
-export interface DataHistoricalPrices {
-  data: DataHistoricalPrice[];
+export interface DataHistoricalPrices2 {
+  data: DataHistoricalPrice2[];
 }
 
-/*
-# Historical Prices
+/* Historical Prices
 [
   {
     "close": 116.59,
@@ -78,10 +77,11 @@ export interface DataHistoricalPrices {
   // { ... }
 ]
 */
-export interface DataCompany {
+export interface DataCompany2 {
   symbol: string;
   companyName: string;
 }
+
 /* Company
 {
   "symbol": "AAPL",
@@ -109,7 +109,7 @@ export interface DataCompany {
   "phone": "1.408.974.3123"
 }
 */
-export interface DataQuote {
+export interface DataQuote2 {
   symbol: string;
   companyName: string;
   latestPrice: number;
