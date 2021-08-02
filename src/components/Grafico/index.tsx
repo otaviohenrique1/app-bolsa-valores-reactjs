@@ -83,8 +83,8 @@ const AreaGrafico = styled.div`
 interface DataGraficoProps {
   name: string;
   uv: number;
-  pv: number;
-  amt: number;
+  // pv: number;
+  // amt: number;
 }
 
 interface DataEmpresaProps {
@@ -163,7 +163,7 @@ export function Grafico(props: GraficoProps) {
         </AreaDadosAcoes>
       </AreaDados>
       <AreaGrafico>
-        <LineChart width={600} height={300} data={dataGrafico} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+        <LineChart width={700} height={300} data={dataGrafico} margin={{ top: 5, right: 5, bottom: 5, left: 5 }}>
           <Line type="monotone" dataKey="uv" stroke="#0047BB" />
           <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
           <XAxis dataKey="name" />
