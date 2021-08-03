@@ -2,8 +2,6 @@ import styled from "styled-components";
 import { Sidebar } from "./Sidebar";
 import { AreaUsuario } from "./AreaUsuario";
 import { AreaDados } from "./AreaDados";
-import { RootState } from "../../app/store";
-import { useSelector } from "react-redux";
 
 const Container = styled.div`
   height: 801px;
@@ -12,11 +10,7 @@ const Container = styled.div`
   background-color: #C4C4C4;
 `;
 
-
 export function Dashboard() {
-  const favoritoDados = useSelector((state: RootState) => state);
-  console.log(favoritoDados.favorito.favoritos);
-
   return (
     <Container>
       <Sidebar />

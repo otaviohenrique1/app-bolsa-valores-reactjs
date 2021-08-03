@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setFavorito, removeFavorito } from "../../../features/favorito/favoritoSlice";
 import { removeEmpresaRecente, setEmpresaRecente } from "../../../features/empresa_recente/empresaRecenteSlice";
 import { RootState } from "../../../app/store";
+import { Api, DataCompany, DataCompanyInitialData, DataHistoricalPrice, DataHistoricalPricesInitialData, DataQuote, DataQuoteInitialData } from "../../../services/api";
 
 const Container = styled.div`
   background-color: #C4C4C4;
@@ -81,6 +82,46 @@ export function AreaDados() {
     // alert(favoritado);
   }
 
+  const [dataCompany, setDataCompany] = useState<DataCompany>(DataCompanyInitialData);
+  const [dataQuote, setDataQuote] = useState<DataQuote>(DataQuoteInitialData);
+  const [dataHistoricalPricesGrafico, setHistoricalPricesGrafico] = useState<DataHistoricalPrice[]>(DataHistoricalPricesInitialData);
+  
+  // const symbolCompany = 'AAPL';
+
+  // useEffect(() => {
+  //   Api({
+  //     symbol: symbolCompany,
+  //     type: 'company'
+  //   }).then((data) => {
+  //     setDataCompany(data.data)
+  //   }).catch((error) => {
+  //     console.log(error);
+  //   });
+  // }, []);
+
+  // useEffect(() => {
+  //   Api({
+  //     symbol: symbolCompany,
+  //     type: 'quote'
+  //   }).then((data) => {
+  //     setDataQuote(data.data)
+  //   }).catch((error) => {
+  //     console.log(error);
+  //   });
+  // }, []);
+
+  // useEffect(() => {
+  //   Api({
+  //     symbol: symbolCompany,
+  //     type: 'chart',
+  //     conteudo: '/date/5d'
+  //   }).then((data) => {
+  //     setHistoricalPricesGrafico(data.data)
+  //   }).catch((error) => {
+  //     console.log(error);
+  //   });
+  // }, []);
+
   const validationSchema = Yup.object().shape({
     empresa_buscada: Yup
       .string()
@@ -92,6 +133,34 @@ export function AreaDados() {
       return item.codigo_empresa === values.empresa_buscada;
     });
     
+    Api({
+      symbol: values.empresa_buscada,
+      type: 'company'
+    }).then((data) => {
+      setDataCompany(data.data)
+    }).catch((error) => {
+      console.log(error);
+    });
+
+    Api({
+      symbol: values.empresa_buscada,
+      type: 'quote'
+    }).then((data) => {
+      setDataQuote(data.data)
+    }).catch((error) => {
+      console.log(error);
+    });
+
+    Api({
+      symbol: values.empresa_buscada,
+      type: 'chart',
+      conteudo: '/date/5d'
+    }).then((data) => {
+      setHistoricalPricesGrafico(data.data)
+    }).catch((error) => {
+      console.log(error);
+    });
+
     if (seEmpresaBuscadaExiste) {
       setData(seEmpresaBuscadaExiste);
 
@@ -130,9 +199,7 @@ export function AreaDados() {
 
   return (
     <Container>
-      <TituloDashboard
-        titulo="Dashboard"
-      />
+      <TituloDashboard titulo="Dashboard" />
       <Formik
         validationSchema={validationSchema}
         initialValues={initialValues}
@@ -164,3 +231,46 @@ export function AreaDados() {
     </Container>
   );
 }
+
+/*
+async function handleSubmitFormBuscaEmpresa(values: FormTypes) {
+  let seEmpresaBuscadaExiste = favoritos.find((item) => {
+    return item.codigo_empresa === values.empresa_buscada;
+  });
+  
+  if (seEmpresaBuscadaExiste) {
+    setData(seEmpresaBuscadaExiste);
+
+    if (data) {
+      const validaSeEmpresaEstaNalista = selector.empresaRecente.empresas_recentes.find((item) => {
+        return data.codigo_empresa === item.codigo_empresa;
+      });
+
+      const buscaSeItemFoiFavoritado = selector.favorito.favoritos.find((item) => {
+        return data.codigo_empresa === item.codigo_empresa;
+      });
+      
+      const novaEmpresaRecente = {
+        id: data.id,
+        favorito: buscaSeItemFoiFavoritado?.favorito || false,
+        src: data.src,
+        alt: data.alt,
+        nome_empresa: data.nome_empresa,
+        codigo_empresa: data.codigo_empresa,
+        porcentagem: data.porcentagem,
+      };
+
+      if (validaSeEmpresaEstaNalista) {
+        dispatch(removeEmpresaRecente(novaEmpresaRecente));
+        setFavoritado(true);
+        dispatch(setEmpresaRecente(novaEmpresaRecente));
+      } else {
+        setFavoritado(true);
+        dispatch(setEmpresaRecente(novaEmpresaRecente));
+      }
+    }
+  } else {
+    alert('Item não encontrado');
+  }
+}
+*/

@@ -3,9 +3,7 @@ import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts'
 import { EmpresaDados } from "../Empresa";
 import { ImagemGraficoSeta, ValorAcaoEmpresa, ValorAcaoPorcentagemBox, ValorAcaoVaricacaoDinheiro } from "../ValorAcao";
 import { BotaoFavorito } from "../Botao";
-import { FormEvent, useState } from "react";
-import { useEffect } from "react";
-import { Api } from "../../services/api";
+import { FormEvent, useState, useEffect } from "react";
 
 export const GraficoContainer = styled.div`
   display: flex;
@@ -110,18 +108,14 @@ interface GraficoProps {
   data: any;
   favoritado?: any;
   handleSubmitFavorito?: (event: FormEvent) => void;
+  dataCompany?: any;
+  dataHistoricalPrices?: any;
+  dataQuote?: any;
 }
 
 export function Grafico(props: GraficoProps) {
   const [dataGrafico, setDataGrafico] = useState<DataGraficoProps[]>([]);
   const [dataEmpresa, setDataEmpresa] = useState<DataEmpresaProps>(dataEmpresaDadosIniciais);
-  
-  useEffect(() => {
-    const dadosEmpresa = Api({
-      symbol: 'AAPL',
-      type: 'company'
-    });
-  }, []);
 
   useEffect(() => {
     let dataFavoritos = props.data;
@@ -192,19 +186,3 @@ const styleTooltip: React.CSSProperties = {
   color: 'white',
   background: '#0047BB',
 };
-
-// const dataExemplo = [
-//   {name: '10:00', uv: 400, pv: 2400, amt: 2400},
-//   {name: '10:30', uv: 300, pv: 2400, amt: 2400},
-//   {name: '11:00', uv: 300, pv: 2400, amt: 2400},
-//   {name: '12:00', uv: 200, pv: 2400, amt: 2400},
-//   {name: '13:00', uv: 278, pv: 2400, amt: 2400},
-//   {name: '14:00', uv: 189, pv: 2400, amt: 2400},
-//   {name: '13:00', uv: 400, pv: 2400, amt: 2400},
-//   {name: '15:00', uv: 300, pv: 2400, amt: 2400},
-//   {name: '16:00', uv: 300, pv: 2400, amt: 2400},
-//   {name: '17:00', uv: 200, pv: 2400, amt: 2400},
-//   {name: '17:30', uv: 278, pv: 2400, amt: 2400},
-//   {name: '18:00', uv: 1000, pv: 2400, amt: 2400},
-// ];
-// setDataGrafico(dataExemplo);

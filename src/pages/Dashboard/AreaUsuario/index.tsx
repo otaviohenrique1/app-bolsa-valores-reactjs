@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { RootState } from '../../../app/store';
 import { useSelector } from 'react-redux';
 import { ContainerMensagemSemDados } from "../../../components/Mensagem";
+import empresa from "../../assets/images/empresa.svg";
 
 const AreaUsuarioBox = styled.div`
   background-color: #FFFFFF;
@@ -84,8 +85,8 @@ export function AreaUsuario() {
                   exibeBotaoFavorito={false}
                   favoritado={item.favorito}
                   logo_empresa={{
-                    src: item.src,
-                    alt: item.alt
+                    src: empresa,
+                    alt: 'empresa'
                   }}
                   empresa_dados={{
                     nome_empresa: item.nome_empresa,

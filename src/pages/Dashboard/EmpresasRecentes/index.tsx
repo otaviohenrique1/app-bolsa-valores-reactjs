@@ -7,6 +7,7 @@ import Carousel from "react-elastic-carousel";
 import { ContainerMensagemSemDados } from "../../../components/Mensagem";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../app/store";
+import empresa from "../../assets/images/empresa.svg";
 
 const EmpresasRecentesContainer = styled.div`
 position: absolute;
@@ -191,8 +192,8 @@ export function EmpresasRecentes() {
                   favoritado={item.favorito}
                   exibeBotaoFavorito
                   logo_empresa={{
-                    src: item.src,
-                    alt: item.alt
+                    src: empresa,
+                    alt: 'empresa'
                   }}
                   empresa_dados={{
                     nome_empresa: item.nome_empresa,

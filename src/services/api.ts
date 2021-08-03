@@ -27,11 +27,15 @@ interface ExemploApiProps {
   opcoes?: string
 }
 
-const apiKey = process.env.REACT_APP_API_KEY;
+export const apiKey = process.env.REACT_APP_API_KEY;
 
 export function Api({ symbol, type, conteudo, opcoes }: ExemploApiProps) {
   return api.get(`${symbol}/${type}${conteudo || ''}?token=${apiKey}${opcoes || ''}`);
   // return api.get(`${symbol}/${type}/${conteudo}?token=${apiKey}${opcoes || ''}`);
+};
+
+export function Api2(data: string) {
+  return api.get(`${data}?token=${apiKey}`);
 };
 
 /* Exemplo Company
@@ -82,3 +86,25 @@ export interface DataQuote {
   // high - low = valor_variacao_dinheiro
   changePercent: number; // porcentagem
 }
+
+export const DataHistoricalPriceInitialData: DataHistoricalPrice = {
+  symbol: '',
+  close: 0,
+  date: new Date(`${new Date().getDate()}/${new Date().getMonth() + 1}/${new Date().getFullYear()}`)
+};
+
+export const DataHistoricalPricesInitialData = [];
+
+export const DataCompanyInitialData: DataCompany = {
+  symbol: '',
+  companyName: ''
+};
+
+export const DataQuoteInitialData: DataQuote = {
+  symbol: '',
+  companyName: '',
+  latestPrice: 0,
+  high: 0,
+  low: 0,
+  changePercent: 0
+};
