@@ -7,7 +7,6 @@ import Carousel from "react-elastic-carousel";
 import { ContainerMensagemSemDados } from "../../../components/Mensagem";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../app/store";
-import empresa from "../../assets/images/empresa.svg";
 
 const EmpresasRecentesContainer = styled.div`
 position: absolute;
@@ -149,10 +148,7 @@ const ContainerMensagemSemDadosEstilizado = styled(ContainerMensagemSemDados)`
   align-items: flex-end;
 `;
 interface DataProps {
-  id: number;
   favorito: boolean;
-  src: string;
-  alt: string;
   nome_empresa: string;
   codigo_empresa: string;
   porcentagem: number;
@@ -191,10 +187,6 @@ export function EmpresasRecentes() {
                 <Item
                   favoritado={item.favorito}
                   exibeBotaoFavorito
-                  logo_empresa={{
-                    src: empresa,
-                    alt: 'empresa'
-                  }}
                   empresa_dados={{
                     nome_empresa: item.nome_empresa,
                     codigo_empresa: item.codigo_empresa

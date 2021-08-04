@@ -80,10 +80,12 @@ const AreaGrafico = styled.div`
 `;
 
 interface DataGraficoProps {
-  name: string;
-  uv: number;
+  // name: string;
+  // uv: number;
   // pv: number;
   // amt: number;
+  date: Date; // name => no grafico
+  close: number; // uv => no grafico
 }
 
 interface DataEmpresaProps {
@@ -105,12 +107,10 @@ const dataEmpresaDadosIniciais = {
 }
 
 interface GraficoProps {
-  data: any;
+  dataGrafico: any;
   favoritado?: any;
   handleSubmitFavorito?: (event: FormEvent) => void;
-  dataCompany?: any;
-  dataHistoricalPrices?: any;
-  dataQuote?: any;
+  dataEmpresa: any;
 }
 
 export function Grafico(props: GraficoProps) {
@@ -118,7 +118,7 @@ export function Grafico(props: GraficoProps) {
   const [dataEmpresa, setDataEmpresa] = useState<DataEmpresaProps>(dataEmpresaDadosIniciais);
 
   useEffect(() => {
-    let dataFavoritos = props.data;
+    let dataFavoritos = props.dataGrafico;
     // let dataFavoritos = favoritos[5];
 
     setDataGrafico(dataFavoritos.data);
@@ -130,7 +130,7 @@ export function Grafico(props: GraficoProps) {
       valor_acao: dataFavoritos.valor_acao,
       valor_variacao_dinheiro: dataFavoritos.valor_variacao_dinheiro,
     });
-  }, [props.data]);
+  }, [props.dataGrafico]);
 
   return (
     <GraficoContainer>
@@ -153,7 +153,7 @@ export function Grafico(props: GraficoProps) {
         </AreaDadosEmpresa>
         <AreaDadosAcoes>
           <ValorAcaoEmpresa>
-            <ImagemGraficoSeta porcentagem={dataEmpresa.porcentagem}  />
+            <ImagemGraficoSeta porcentagem={dataEmpresa.porcentagem || 0}  />
             {' '}
             {`$${(dataEmpresa.valor_acao).toString().replace('.', ',')}`}
           </ValorAcaoEmpresa><br />

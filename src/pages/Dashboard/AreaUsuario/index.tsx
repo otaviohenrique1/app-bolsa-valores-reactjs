@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import { RootState } from '../../../app/store';
 import { useSelector } from 'react-redux';
 import { ContainerMensagemSemDados } from "../../../components/Mensagem";
-import empresa from "../../assets/images/empresa.svg";
 
 const AreaUsuarioBox = styled.div`
   background-color: #FFFFFF;
@@ -38,10 +37,7 @@ const EmpresasFavoritasTitulo = styled.div`
 `;
 
 interface DataProps {
-  id: number;
   favorito: boolean;
-  src: string;
-  alt: string;
   nome_empresa: string;
   codigo_empresa: string;
   porcentagem: number;
@@ -84,10 +80,6 @@ export function AreaUsuario() {
                   key={index}
                   exibeBotaoFavorito={false}
                   favoritado={item.favorito}
-                  logo_empresa={{
-                    src: empresa,
-                    alt: 'empresa'
-                  }}
                   empresa_dados={{
                     nome_empresa: item.nome_empresa,
                     codigo_empresa: item.codigo_empresa
@@ -95,7 +87,7 @@ export function AreaUsuario() {
                   valor_porcentagem={{
                     porcentagem: item.porcentagem
                   }}
-                  idFavorito={item.id}
+                  codigoEmpresaFavorito={item.codigo_empresa}
                 />
               );
             })

@@ -2,14 +2,16 @@ import { FormEvent } from "react";
 import styled from "styled-components";
 import { BotaoRemover } from "../Botao";
 import { BotaoFavorito } from "../Botao";
-import { CardEmpresa, EmpresaDados, EmpresaDadosProps, LogoEmpresa, LogoEmpresaProps } from "../Empresa";
+import { CardEmpresa, EmpresaDados, EmpresaDadosProps, LogoEmpresa } from "../Empresa";
+// import { LogoEmpresaProps } from "../Empresa";
 import { ImagemGraficoSeta, ValorAcaoPorcentagem, ValorAcaoPorcentagemProps } from "../ValorAcao";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFavorito } from "../../features/favorito/favoritoSlice";
 import { RootState } from "../../app/store";
+import empresa from "../../assets/images/empresa.svg";
 
 interface ItemProps {
-  logo_empresa: LogoEmpresaProps;
+  // logo_empresa?: LogoEmpresaProps;
   empresa_dados: EmpresaDadosProps;
   valor_porcentagem: ValorAcaoPorcentagemProps;
   favoritado?: boolean;
@@ -42,8 +44,8 @@ export function Item(props: ItemProps) {
       )}
       <ItemBox valor_flex={1.5}>
         <LogoEmpresa
-          src={props.logo_empresa.src}
-          alt={props.logo_empresa.alt}
+          src={empresa}
+          alt={'empresa'}
         />
       </ItemBox>
       <ItemBox valor_flex={5}>
@@ -72,7 +74,7 @@ const ItemEstilizado = styled(Item)`
 `;
 
 interface ItemFavoritadoProps extends ItemProps {
-  idFavorito: number;
+  codigoEmpresaFavorito: string;
 }
 
 export function ItemFavoritado(props: ItemFavoritadoProps) {
@@ -83,7 +85,7 @@ export function ItemFavoritado(props: ItemFavoritadoProps) {
   async function handleSubmitFavorito(event: FormEvent) {
     event.preventDefault();
     const data = selector.favorito.favoritos.find((item) => {
-      return props.idFavorito === item.id;
+      return props.codigoEmpresaFavorito === item.codigo_empresa;
     });
     
     if (data) {
@@ -97,10 +99,6 @@ export function ItemFavoritado(props: ItemFavoritadoProps) {
     <ItemFavoritadoBox>
       <ItemEstilizado
         favoritado={props.favoritado}
-        logo_empresa={{
-          src: props.logo_empresa.src,
-          alt: props.logo_empresa.alt
-        }}
         empresa_dados={{
           nome_empresa: props.empresa_dados.codigo_empresa,
           codigo_empresa: props.empresa_dados.nome_empresa
@@ -112,12 +110,7 @@ export function ItemFavoritado(props: ItemFavoritadoProps) {
       <form
         onSubmit={handleSubmitFavorito}
       >
-        <BotaoRemover
-          // onClick={() => {
-          //   alert(`Remover favorito ?
-          //   id => ${props.idFavorito}`);
-          // }}
-        />
+        <BotaoRemover />
       </form>
     </ItemFavoritadoBox>
   );
